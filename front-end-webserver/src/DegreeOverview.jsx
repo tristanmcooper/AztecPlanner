@@ -66,7 +66,7 @@ export default function DegreeOverview({ priorReq, userInfo }) {
         </div>
         <div className="flex items-center space-x-1">
           <div className="w-4 h-4 bg-gray-200 rounded border" />
-          <span>To Do</span>
+          <span>Not Met</span>
         </div>
       </div>
   
