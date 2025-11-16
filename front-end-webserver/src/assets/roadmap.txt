@@ -1,0 +1,114 @@
+The roadmap outlines a recommended sequence of courses to follow in order to complete your degree in a timely manner. It is designed to take into account General Education courses and major preparation courses that will satisfy multiple requirements with one course. The roadmap suggests sequencing to ensure that you complete prerequisite courses prior to taking the higher-level course.
+
+Year 1
+Fall Semester (17 units)
+English Composition [1A] Units: 3
+MATH 150 - Calculus I Units: 4
+     º Math/Quantitative Reasoning [2] / Major Prep
+
+Arts [3A] or Humanities [3B] Units: 3
+Ethnic Studies [6] / American Institutions / Ethnic Studies [Graduation Requirement] Units: 3
+CS 150 - Introductory Computer Programming Units: 3
+     º Major Prep
+
+CS 150L - Introductory Computer Programming Laboratory Units: 1
+     º Major Prep
+
+Spring Semester (17 units)
+Critical Thinking [1B] Units: 3
+Oral Communication [1C] Units: 3
+Biological Science [5B] Units: 3
+CS 160 - Intermediate Computer Programming Units: 3
+     º Major Prep
+
+CS 160L - Intermediate Computer Programming Laboratory Units: 1
+     º Major Prep
+
+MATH 151 - Calculus II Units: 4
+     º Major Prep
+
+Summer Semester (6 units)
+Social and Behavioral Science [4] Units: 3
+Arts [3A] or Humanities [3B] Units: 3
+Year 2
+Fall Semester (16 units)
+PHYS 195 - Principles of Physics Units: 3
+     º Physical Science [5A] / Major Prep
+
+PHYS 195L - Principles of Physics Laboratory Units: 1
+     º Laboratory [5C] / Major Prep
+
+Elective Units: 3
+Elective Units: 3
+CS 210 - Data Structures Units: 3
+     º Major Prep
+
+CS 240 - Computer Organization Units: 3
+     º Major Prep
+
+Spring Semester (16 units)
+CS 250 - Introduction to Software Systems Units: 3
+     º Major Prep
+
+MATH 245 - Discrete Mathematics Units: 3
+     º Major Prep
+
+MATH 254 - Introduction to Linear Algebra Units: 3
+     º Major Prep
+
+PHYS 196 - Principles of Physics Units: 3
+     º Major Prep
+
+PHYS 196L - Principles of Physics Laboratory Units: 1
+     º Major Prep
+
+STAT 250 - Statistical Principles and Practices Units: 3
+     º Major Prep
+
+Year 3
+Fall Semester (12 units)
+GWAR: Upper Division Writing Course Units: 3
+CS 370 - Computer Architecture Units: 3
+     º Major
+
+CS 450 - Introduction to Artificial Intelligence Units: 3
+     º Major
+
+Major Elective: CS Units: 3
+     º See SDSU University Catalog for list of approved courses.
+
+Spring Semester (12 units)
+GE Explorations / Cultural Diversity Units: 3
+CS 420 - Advanced Programming Languages Units: 3
+     º Major
+
+CS 480 - Operating Systems Units: 3
+     º Major
+
+Major Elective: CS Units: 3
+     º See SDSU University Catalog for list of approved courses.
+
+Year 4
+Fall Semester (12 units)
+GE Explorations Units: 3
+CS 460 - Algorithms Units: 3
+     º Major
+
+Major Elective: CS Units: 3
+     º See SDSU University Catalog for list of approved courses.
+
+Major Elective: CS Units: 3
+     º See SDSU University Catalog for list of approved courses.
+
+Spring Semester (12 units)
+GE Explorations Units: 3
+STAT 550 - Applied Probability Units: 3
+     º Major
+
+Major Elective: CS Units: 3
+     º See SDSU University Catalog for list of approved courses.
+
+Major Elective: CS Units: 3
+     º See SDSU University Catalog for list of approved courses.
+
+Degree Total (123 units)

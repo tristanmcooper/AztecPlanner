@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import CourseSearch from "./CourseSearch";
 import AIAssistant from "./AIAssistant";
 import YearView from "./YearView";
 import DegreeOverview from "./DegreeOverview";
+import SemesterPlanner from "./SemesterPlanner";
 import "./index.css";
 
 export default function Planner() {
   const location = useLocation();
   const { degreeData, userReq, priorReq, todoReq, classData, userInfo } = location.state || {};
+  const navigate = useNavigate();
 
   // --- Draggable sidebar width (vertical splitter) ---
   const [sidebarWidth, setSidebarWidth] = useState(33); // %
@@ -82,11 +84,19 @@ export default function Planner() {
             Degree Overview{userInfo ? ` - ${userInfo.firstName} ${userInfo.lastName}` : ""}
           </h1>
 
-          {/* --- Degree Overview component --- */}
-          {priorReq && <DegreeOverview priorReq={priorReq} userInfo={userInfo} />}
-
-          {/* Gap before YearView */}
-          <div className="mt-6 space-y-10">
+          <div className="space-y-10">
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-semibold">Degree Overview</h2>
+              <button
+                className="ml-4 px-3 py-1 bg-blue-600 text-white rounded"
+                onClick={() => {
+                  // navigate to semester planner and pass degreeData in navigation state
+                  navigate('/semester-planner', { state: { degreeData, priorReq, todoReq, userInfo } });
+                }}
+              >
+                Open Semester Planner
+              </button>
+            </div>
             {degreeData
               ? Object.entries(degreeData).map(([year, semesters]) => (
                   <YearView
@@ -103,6 +113,7 @@ export default function Planner() {
                   <YearView yearLabel="2025 – 2026" />
                 </>
               )}
+            {/* SemesterPlanner receives degreeData from Planner via separate page route */}
           </div>
         </div>
       </main>
