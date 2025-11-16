@@ -76,15 +76,6 @@ export default function UploadDegreeAudit() {
         // Construct data
         const degreeDataObj = new DegreeData(extractedCourses);
 
-        // DUMMY ADD
-        degreeDataObj.add({
-          term: "SP26",
-          code: "ANTH 331",
-          title: "Not Found",
-          credit: "3.0",
-          grade: "NA",
-          status: "Planned",
-        });
 
         console.log(degreeDataObj)
         const degreeData = degreeDataObj.getRaw(); // existing code expects a plain object
