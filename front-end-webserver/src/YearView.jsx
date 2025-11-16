@@ -8,15 +8,39 @@ export default function YearView({ yearLabel, data = {} }) {
     Summer: data.Summer || Array(5).fill(null),
   });
 
-  const handleDrop = (term, index, e) => {
-    e.preventDefault();
-    const course = JSON.parse(e.dataTransfer.getData("course"));
-    const updated = { ...dropped };
-    updated[term][index] = course;
-    setDropped(updated);
+  const handleDragStart = (term, index, e) => {
+    const course = dropped[term][index];
+    if (!course) return;
+    e.dataTransfer.setData(
+      "dragInfo",
+      JSON.stringify({ term, index, course })
+    );
   };
 
   const allowDrop = (e) => e.preventDefault();
+
+  const handleDrop = (targetTerm, targetIndex, e) => {
+    e.preventDefault();
+    const dragInfo = JSON.parse(e.dataTransfer.getData("dragInfo"));
+    if (!dragInfo) return;
+
+    const { term: sourceTerm, index: sourceIndex, course } = dragInfo;
+
+    setDropped((prev) => {
+      const updated = { ...prev };
+
+      // Make deep copies of each term array
+      for (let t of terms) updated[t] = [...prev[t]];
+
+      const targetCourse = updated[targetTerm][targetIndex];
+
+      // Swap if target has a course
+      updated[targetTerm][targetIndex] = course;
+      updated[sourceTerm][sourceIndex] = targetCourse || null;
+
+      return updated;
+    });
+  };
 
   return (
     <div className="w-full max-w-[932px] flex flex-col gap-4">
@@ -39,9 +63,12 @@ export default function YearView({ yearLabel, data = {} }) {
               {(dropped[term] || []).map((course, i) => (
                 <div
                   key={i}
+                  draggable={!!course}
+                  onDragStart={(e) => handleDragStart(term, i, e)}
                   onDrop={(e) => handleDrop(term, i, e)}
                   onDragOver={allowDrop}
-                  className="w-72 h-14 px-2.5 py-1.5 rounded-[5px] outline outline-1 outline-black/20 flex flex-col justify-center items-start overflow-hidden"
+                  className={`w-72 h-14 px-2.5 py-1.5 rounded-[5px] outline outline-1 outline-black/20 flex flex-col justify-center items-start overflow-hidden transition-colors
+                    ${course ? "bg-white cursor-move" : "bg-gray-50"} hover:bg-gray-100`}
                 >
                   {course ? (
                     <>
