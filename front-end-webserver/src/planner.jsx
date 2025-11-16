@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import CourseSearch from "./CourseSearch";
 import AIAssistant from "./AIAssistant";
@@ -9,9 +9,72 @@ export default function Planner() {
   const location = useLocation();
   const { degreeData, userReq, priorReq, todoReq, classData } = location.state || {};
 
+  // --- Draggable sidebar width (vertical splitter) ---
+  const [sidebarWidth, setSidebarWidth] = useState(33); // %
+  const [isDraggingCol, setIsDraggingCol] = useState(false);
+
+  // --- Draggable divider between CourseSearch & AI (horizontal splitter) ---
+  const [topPanePct, setTopPanePct] = useState(35); // %
+  const [isDraggingRow, setIsDraggingRow] = useState(false);
+  const sidebarRef = useRef(null);
+
+  // --- Vertical drag handler ---
+  useEffect(() => {
+    if (!isDraggingCol) return;
+
+    function handleMouseMove(e) {
+      const total = window.innerWidth || 1;
+      const rawPct = ((total - e.clientX) / total) * 100;
+      const clamped = Math.min(45, Math.max(20, rawPct)); // 20–45% sidebar
+      setSidebarWidth(clamped);
+    }
+
+    function handleMouseUp() {
+      setIsDraggingCol(false);
+    }
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isDraggingCol]);
+
+  // --- Horizontal drag handler ---
+  useEffect(() => {
+    if (!isDraggingRow) return;
+
+    function handleMouseMove(e) {
+      if (!sidebarRef.current) return;
+      const rect = sidebarRef.current.getBoundingClientRect();
+      const offsetY = e.clientY - rect.top;
+      const pct = (offsetY / rect.height) * 100;
+      const clamped = Math.min(80, Math.max(20, pct)); // each gets at least 20%
+      setTopPanePct(clamped);
+    }
+
+    function handleMouseUp() {
+      setIsDraggingRow(false);
+    }
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isDraggingRow]);
+
+  const mainWidth = 100 - sidebarWidth;
+
   return (
-    <div className="flex mt-16 items-start">
-      <main className="flex-1 p-4 mr-[33%]"> {/* Leave space for the fixed sidebar */}
+    <div className="flex mt-16 items-start h-[calc(100vh-4rem)] overflow-hidden">
+      {/* --- Main Planner --- */}
+      <main
+        className="h-full p-4 overflow-auto"
+        style={{ width: `${mainWidth}%` }}
+      >
         <div className="bg-white border rounded p-4">
           <h1 className="text-xl font-bold mb-4">Planner</h1>
 
@@ -36,15 +99,51 @@ export default function Planner() {
         </div>
       </main>
 
-      {/* Fixed sidebar */}
-      <aside className="fixed right-0 top-[4rem] w-1/3 h-[calc(100vh-4rem)] flex flex-col p-4 bg-gray-50 border-l">
-        <div className="basis-[30%] overflow-y-auto">
+      {/* --- Vertical Split Handle --- */}
+      <div className="h-full flex items-center" style={{ width: "14px" }}>
+        <div
+          className={`mx-auto h-24 w-1 rounded-full cursor-col-resize ${
+            isDraggingCol ? "bg-gray-400" : "bg-gray-300"
+          }`}
+          onMouseDown={(e) => {
+            e.preventDefault();
+            setIsDraggingCol(true);
+          }}
+        />
+      </div>
+
+      {/* --- Sidebar --- */}
+      <aside
+        ref={sidebarRef}
+        className="h-full flex flex-col p-4 bg-gray-50 border-l overflow-hidden"
+        style={{ width: `${sidebarWidth}%` }}
+      >
+        {/* --- CourseSearch --- */}
+        <div className="overflow-y-auto" style={{ height: `${topPanePct}%` }}>
           <CourseSearch />
         </div>
-        <div className="basis-[70%] overflow-y-auto mt-4">
+
+        {/* --- Horizontal Split Handle --- */}
+        <div className="w-full flex items-center justify-center my-2">
+          <div
+            className={`h-1 w-24 rounded-full cursor-row-resize ${
+              isDraggingRow ? "bg-gray-400" : "bg-gray-300"
+            }`}
+            onMouseDown={(e) => {
+              e.preventDefault();
+              setIsDraggingRow(true);
+            }}
+          />
+        </div>
+
+        {/* --- AIAssistant --- */}
+        <div
+          className="overflow-y-auto"
+          style={{ height: `${100 - topPanePct}%` }}
+        >
           <AIAssistant />
         </div>
       </aside>
     </div>
   );
-};
+}
