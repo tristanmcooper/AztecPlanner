@@ -83,6 +83,7 @@ export default function App() {
    else {
      alert("Please select a valid HTML file");
    }
+    window.location.href = "/planner";
  };
 
 
@@ -233,10 +234,10 @@ export default function App() {
  const triggerUpload = () => fileInputRef.current?.click();
 
 
- const startFromScratch = () => {
-   document.getElementById("uploader-card")?.scrollIntoView({ behavior: "smooth" });
- };
-
+  const startFromScratch = () => {
+    document.getElementById("uploader-card")?.scrollIntoView({ behavior: "smooth" });
+    window.location.href = "/planner";
+  };
 
  return (
    <>
