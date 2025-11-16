@@ -1,0 +1,139 @@
+[
+  {
+    "id": "2893834",
+    "name": "Magda Tsintsadze",
+    "url": "https://www.ratemyprofessors.com/professor/2893834",
+    "department": "Computer Science",
+    "overall_quality": 3.2,
+    "overall_difficulty": 4.1,
+    "num_ratings": 10,
+    "would_take_again_percent": 50,
+    "courses": [
+      "CS 210"
+    ]
+  },
+  {
+    "id": "3002345",
+    "name": "Dominic Dabish",
+    "url": "https://www.ratemyprofessors.com/professor/3002345",
+    "department": "Computer Science",
+    "overall_quality": 4.8,
+    "overall_difficulty": 3.6,
+    "num_ratings": 18,
+    "would_take_again_percent": 95,
+    "courses": [
+      "CS 420"
+    ]
+  },
+  {
+    "id": "2594715",
+    "name": "Ben Shen",
+    "url": "https://www.ratemyprofessors.com/professor/2594715",
+    "department": "Computer Science",
+    "overall_quality": 4.3,
+    "overall_difficulty": 4.0,
+    "num_ratings": 47,
+    "would_take_again_percent": 81,
+    "courses": [
+      "CS 480"
+    ]
+  },
+  {
+    "id": "3030844",
+    "name": "Maryam Pourebadi",
+    "url": "https://www.ratemyprofessors.com/professor/3030844",
+    "department": "Computer Science",
+    "overall_quality": 4.0,
+    "overall_difficulty": 2.2,
+    "num_ratings": 30,
+    "would_take_again_percent": 74,
+    "courses": [
+      "CS 420",
+      "CS 556"
+    ]
+  },
+  {
+    "id": "2312907",
+    "name": "Wei Wang",
+    "url": "https://www.ratemyprofessors.com/professor/2312907",
+    "department": "Computer Science",
+    "overall_quality": 4.3,
+    "overall_difficulty": 3.9,
+    "num_ratings": 24,
+    "would_take_again_percent": 75,
+    "courses": [
+      "CS 576",
+      "CS 578",
+      "CS 696"
+    ]
+  },
+  {
+    "id": "96810",
+    "name": "Patty Kraft",
+    "url": "https://www.ratemyprofessors.com/professor/96810",
+    "department": "Computer Science",
+    "overall_quality": 3.6,
+    "overall_difficulty": 3.2,
+    "num_ratings": 115,
+    "would_take_again_percent": 76,
+    "courses": [
+      "CS 150",
+      "CS 160"
+    ]
+  },
+  {
+    "id": "2926197",
+    "name": "Kai Li",
+    "url": "https://www.ratemyprofessors.com/professor/2926197",
+    "department": "Computer Science",
+    "overall_quality": 3.7,
+    "overall_difficulty": 3.3,
+    "num_ratings": 3,
+    "would_take_again_percent": 100,
+    "courses": [
+      "CS 530",
+      "CS 574",
+      "CS 596"
+    ]
+  },
+  {
+    "id": "3049293",
+    "name": "Joann Chen",
+    "url": "https://www.ratemyprofessors.com/professor/3049293",
+    "department": "Computer Science",
+    "overall_quality": 5.0,
+    "overall_difficulty": 3.5,
+    "num_ratings": 2,
+    "would_take_again_percent": 100,
+    "courses": [
+      "CS 549"
+    ]
+  },
+  {
+    "id": "2558641",
+    "name": "Manju Muralidharan",
+    "url": "https://www.ratemyprofessors.com/professor/2558641",
+    "department": "Computer Science",
+    "overall_quality": 4.1,
+    "overall_difficulty": 2.9,
+    "num_ratings": 62,
+    "would_take_again_percent": 83,
+    "courses": [
+      "CS 210",
+      "CS 460"
+    ]
+  },
+  {
+    "id": "3116173",
+    "name": "Lokeshwari  Anamalamudi",
+    "url": "https://www.ratemyprofessors.com/professor/3116173",
+    "department": "Computer Science",
+    "overall_quality": 3.0,
+    "overall_difficulty": 2.0,
+    "num_ratings": 1,
+    "would_take_again_percent": 100,
+    "courses": [
+      "CS 150"
+    ]
+  }
+]
