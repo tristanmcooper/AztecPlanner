@@ -43,11 +43,27 @@ export default function UploadDegreeAudit() {
         setDegreeData(extractedCourses);
 
         // Construct data
-        const degreeData = constructDegreeData(extractedCourses);
+        const degreeDataObj = new DegreeData(extractedCourses);
+
+        // DUMMY ADD
+        degreeDataObj.add({
+          term: "SP26",
+          code: "ANTH 331",
+          title: "Dummy",
+          credit: "3.0",
+          grade: "",
+          status: "Planned",
+        });
+
+        console.log(degreeDataObj)
+        const degreeData = degreeDataObj.getRaw(); // existing code expects a plain object
         const userReq = constructUserReq(degreeData);
         const priorReq = constructPriorReq(userReq, sdsuReq);
         const todoReq = constructTodoReq(priorReq);
         const classData = constructClassArray(classDataJSON);
+        console.log(priorReq);
+        console.log(todoReq);
+        console.log(classData);
 
         // ✅ Navigate to planner with all processed data
         navigate("/planner", {
@@ -60,45 +76,85 @@ export default function UploadDegreeAudit() {
     }
   };
 
-  // Helper functions unchanged...
-  const constructDegreeData = (courses) => {
-    const data = {};
-    courses.forEach((c) => {
-      const semMatch = c.term.match(/([A-Z]+)(\d{2})/);
-      if (!semMatch) return;
-      const semester = semMatch[1];
-      const year = `20${semMatch[2]}`;
+  class DegreeData {
+    constructor(courses) {
+      this.data = {};         // main storage
+      this.buildInitial(courses);
+    }
+  
+    // Helper to convert FA/SP/SU into real terms + academic years
+    parseTerm(termCode) {
+      const match = termCode.match(/([A-Z]+)(\d{2})/);
+      if (!match) return null;
+    
+      const semester = match[1];
+      const year = `20${match[2]}`;
+    
+      const termMap = {
+        FA: "Fall",
+        SP: "Spring",
+        SU: "Summer",
+      };
+    
+      const normalizedTerm = termMap[semester];
+      
+      // ✔️ Always use actual calendar year
       const academicYear = semester === "FA" ? parseInt(year) : parseInt(year) - 1;
-
-      if (semester === "FA") c.term = "Fall";
-      else if (semester === "SP") c.term = "Spring";
-      else if (semester === "SU") c.term = "Summer";
-
-      if (!data[academicYear]) data[academicYear] = {};
-      if (!data[academicYear][c.term]) data[academicYear][c.term] = [];
-
-      data[academicYear][c.term].push({
-        code: c.code,
-        title: c.title,
-        credit: c.credit,
-        grade: c.grade,
-        status: c.status,
+    
+      return { academicYear, normalizedTerm };
+    }
+  
+    // Build the initial data on upload
+    buildInitial(courses) {
+      courses.forEach((c) => {
+        const t = this.parseTerm(c.term);
+        if (!t) return;
+  
+        const { academicYear, normalizedTerm } = t;
+  
+        if (!this.data[academicYear]) this.data[academicYear] = {};
+        if (!this.data[academicYear][normalizedTerm]) {
+          this.data[academicYear][normalizedTerm] = [];
+        }
+  
+        this.data[academicYear][normalizedTerm].push({
+          code: c.code,
+          title: c.title,
+          credit: c.credit,
+          grade: c.grade,
+          status: c.status,
+        });
       });
-    });
 
-    if (!data["2025"]) data["2025"] = {};
-    if (!data["2025"]["Spring"]) data["2025"]["Spring"] = [];
-
-    data["2025"]["Spring"].push({
-      code: "ANTH 331",
-      title: "Dummy",
-      credit: "3.0",
-      grade: "",
-      status: "Planned"
-    });
-
-    return data;
-  };
+    }
+  
+    // Add a new course anywhere at runtime
+    add(course) {
+      const t = this.parseTerm(course.term);
+      if (!t) throw new Error("Invalid term format");
+  
+      const { academicYear, normalizedTerm } = t;
+  
+      if (!this.data[academicYear]) this.data[academicYear] = {};
+      if (!this.data[academicYear][normalizedTerm]) {
+        this.data[academicYear][normalizedTerm] = [];
+      }
+  
+      this.data[academicYear][normalizedTerm].push({
+        code: course.code,
+        title: course.title,
+        credit: course.credit,
+        grade: course.grade,
+        status: course.status,
+      });
+    }
+  
+    // Optional: expose the raw object
+    getRaw() {
+      return this.data;
+    }
+  }
+  
 
   const constructUserReq = (degreeData) => {
     const userReq = {};
