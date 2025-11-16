@@ -26,6 +26,12 @@ function LandingPage() {
         onStartFromScratch={handleStartFromScratch}
       />
     </div>
+          {/* Bottom full-width PNG */}
+      <img
+        src="/partypeople.png" // Replace with your actual image path
+        alt="Party people"
+        className="absolute bottom-0 left-0 w-full object-cover z-[-1]"
+      />
     </>
   );
 }
