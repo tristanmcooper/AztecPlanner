@@ -141,7 +141,7 @@ export default function Planner() {
                 state: { degreeData, priorReq, todoReq, userInfo }
               })}
             >
-              Open Semester Planner
+              Open Semester Planner ✦
             </button>
           </div>
         </div>
