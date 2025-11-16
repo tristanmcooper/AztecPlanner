@@ -85,7 +85,7 @@ export default function CourseSearch() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const exampleQueries = ["CS 160", "data science", "GE writing"];
+  const exampleQueries = ["CS 210", "data science", "GE writing"];
 
   async function performSearch(q) {
     const trimmed = q.trim();
