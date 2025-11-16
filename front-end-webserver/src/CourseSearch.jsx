@@ -85,16 +85,20 @@ export default function CourseSearch() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  async function doSearch(e) {
-    if (e) e.preventDefault();
-    if (!query.trim()) return;
+  const exampleQueries = ["CS 160", "data science", "GE writing"];
+
+  async function performSearch(q) {
+    const trimmed = q.trim();
+    if (!trimmed) return;
+
     setLoading(true);
     setError(null);
     setSelectedCourse(null);
     setExpandedProfessorId(null);
+
     try {
       const resp = await fetch(
-        `http://127.0.0.1:8000/courses/search?q=${encodeURIComponent(query)}`
+        `http://127.0.0.1:8000/courses/search?q=${encodeURIComponent(trimmed)}`
       );
       if (!resp.ok) throw new Error(`Search failed: ${resp.status}`);
       const data = await resp.json();
@@ -104,6 +108,16 @@ export default function CourseSearch() {
     } finally {
       setLoading(false);
     }
+  }
+
+  async function doSearch(e) {
+    if (e) e.preventDefault();
+    await performSearch(query);
+  }
+
+  async function handleExampleClick(example) {
+    setQuery(example);
+    await performSearch(example);
   }
 
   function handleDragStart(e, course) {
@@ -363,8 +377,20 @@ export default function CourseSearch() {
                     <div className="mt-1 text-sm text-gray-500">
                       Start typing a course code, subject, or topic.
                     </div>
-                    <div className="mt-2 text-xs text-[#A6192E]">
-                      Example: “CS 160”, “data science”, “GE writing”.
+                    <div className="mt-3 text-xs text-gray-500">
+                      Or try one of these:
+                    </div>
+                    <div className="mt-2 flex flex-wrap justify-center gap-2">
+                      {exampleQueries.map((example) => (
+                        <button
+                          key={example}
+                          type="button"
+                          onClick={() => handleExampleClick(example)}
+                          className="px-3 py-1 rounded-full border border-[#A6192E]/40 text-xs text-[#A6192E] hover:bg-[#A6192E] hover:text-white transition-colors"
+                        >
+                          {example}
+                        </button>
+                      ))}
                     </div>
                   </>
                 )}
