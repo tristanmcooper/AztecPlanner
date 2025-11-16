@@ -72,7 +72,7 @@ export default function Planner() {
   const mainWidth = 100 - sidebarWidth;
 
   return (
-    <div className="flex mt-16 items-start h-[calc(100vh-4rem)] overflow-hidden">
+    <div className="flex mt-[50px] items-start h-[calc(100vh-50px)] overflow-hidden">
       {/* --- Main Planner --- */}
       <main
         className="h-full px-2 py-6 overflow-auto"
@@ -80,9 +80,9 @@ export default function Planner() {
       >
         <div className="bg-white p-4">
           {/* --- Degree Overview heading --- */}
-          <h1 className="text-4xl font-bold mb-6 -mt-8">
+          <h2 className="text-5xl font-bold text-black mb-6 mt-1 text-left">
             Degree Overview{userInfo ? ` - ${userInfo.firstName} ${userInfo.lastName}` : ""}
-          </h1>
+          </h2>
 
           <div className="space-y-10">
             <div className="flex items-center justify-between">

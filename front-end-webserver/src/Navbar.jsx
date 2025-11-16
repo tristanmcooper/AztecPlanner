@@ -55,7 +55,7 @@ export default function Navbar() {
       </div>
 
       {/* (Tutorial button) */}
-      <div
+      {/* <div
         style={{
           padding: "5px 10px",
           borderRadius: 10,
@@ -76,7 +76,7 @@ export default function Navbar() {
         >
           Demo
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
