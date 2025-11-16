@@ -6,17 +6,24 @@ export default function AIAssistant() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  async function sendMessage(e) {
-    e && e.preventDefault();
-    if (!message) return;
+  async function sendMessage(eOrMsg) {
+    let userMsg;
+
+    // Support both: form submit event OR direct message string
+    if (typeof eOrMsg === "string") {
+      userMsg = eOrMsg;
+    } else {
+      eOrMsg && eOrMsg.preventDefault();
+      if (!message) return;
+      userMsg = message;
+    }
+
     setLoading(true);
     setError(null);
-    const userMsg = message;
     setMessage("");
     setHistory((h) => [...h, { role: "user", text: userMsg }]);
+
     try {
-      // Use the RAG endpoint so the server will retrieve relevant
-      // documents and include them in the system prompt for the LLM.
       const resp = await fetch(`http://127.0.0.1:8000/rag`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -25,11 +32,11 @@ export default function AIAssistant() {
       if (!resp.ok) throw new Error(`AI request failed: ${resp.status}`);
       const data = await resp.json();
       const reply = data?.reply ?? "(no response)";
-      // Optionally include retrieved documents in the assistant message
       const retrieved = data?.retrieved_documents;
-      const assistantText = retrieved && retrieved.length > 0
-        ? reply + "\n\nRetrieved documents:\n" + retrieved.join('\n---\n')
-        : reply;
+      const assistantText =
+        retrieved && retrieved.length > 0
+          ? reply + "\n\nRetrieved documents:\n" + retrieved.join("\n---\n")
+          : reply;
       setHistory((h) => [...h, { role: "assistant", text: assistantText }]);
     } catch (err) {
       setError(err.message || String(err));
@@ -40,23 +47,37 @@ export default function AIAssistant() {
 
   return (
     <div className="w-full bg-white border rounded p-3 flex flex-col h-full">
-      <h3 className="text-lg font-semibold mb-2">AI Assistant</h3>
+      <h3 className="text-lg font-semibold mb-12">AI Assistant</h3>
 
       <div className="ai-chat overflow-auto mb-4 flex-1" aria-live="polite">
         {history.length === 0 && (
-        <div className="text-gray-500 italic">
-            Ask about ... <br></br>
-            Dominic Dabish's rateMyprofessor reviews <br></br>
-            High rated courses that fulfill a specific degree requirement <br></br>
-            Possible substitutions for a course (that still target the same reqs) <br></br>
-            Course suggestions based on your interests <br></br>
-            What are some classes that cover data structures? <br></br>
-        </div>
+          <div className="text-gray-600 text-center">
+            <p className="font-medium mb-12">Ask me anything about courses!</p>
+            <div className="flex flex-col space-y-1">
+              {[
+                "What prerequisites do I need for CS460?",
+                "Dominic Dabish Rate My Professor score?",
+                "Which terms is CS420 offered in?",
+                "What courses cover data science topics?",
+              ].map((prompt, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => sendMessage(prompt)}
+                  className="text-[#A6192E] hover:underline text-sm text-center transition-colors"
+                >
+                  {prompt}
+                </button>
+              ))}
+            </div>
+          </div>
         )}
+
         {history.map((h, i) => (
-          <div key={i} className={`mb-2`}>
-            <div className="text-xs text-gray-500">{h.role === "user" ? "You" : "Assistant"}</div>
-            <div className="mt-1">{h.text}</div>
+          <div key={i} className="mb-2">
+            <div className="text-xs text-gray-500">
+              {h.role === "user" ? "You" : "Assistant"}
+            </div>
+            <div className="mt-1 whitespace-pre-line">{h.text}</div>
           </div>
         ))}
       </div>
@@ -70,10 +91,7 @@ export default function AIAssistant() {
           onChange={(e) => setMessage(e.target.value)}
           rows={3}
           onKeyDown={(e) => {
-            // Send on Enter, allow newline with Shift+Enter
-            if (e.key === "Enter" && !e.shiftKey) {
-              sendMessage(e);
-            }
+            if (e.key === "Enter" && !e.shiftKey) sendMessage(e);
           }}
           className="w-full px-3 py-2 border rounded focus:outline-none focus:ring"
         />
