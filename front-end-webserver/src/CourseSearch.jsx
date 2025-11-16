@@ -1,3 +1,4 @@
+
 // front-end-webserver/src/CourseSearch.jsx
 import React, { useState } from "react";
 import profExtra from "./assets/sdsu_cs_professors.json";

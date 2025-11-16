@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 
 export default function AIAssistant() {
@@ -66,8 +65,81 @@ export default function AIAssistant() {
     );
   }
 
+  // Inline markdown: **bold**
+  function renderInlineMarkdown(text) {
+    const parts = text.split(/(\*\*[^*]+\*\*)/g);
+
+    return parts.map((part, i) => {
+      const boldMatch = part.match(/^\*\*(.+)\*\*$/);
+      if (boldMatch) {
+        return (
+          <strong key={i} className="font-semibold">
+            {boldMatch[1]}
+          </strong>
+        );
+      }
+      return <React.Fragment key={i}>{part}</React.Fragment>;
+    });
+  }
+
+  // Block-level markdown: paragraphs, blank lines, and bullet lists (* or -)
+  function renderSimpleMarkdown(text) {
+    const lines = text.split("\n");
+    const elements = [];
+    let i = 0;
+    let keyCounter = 0;
+
+    while (i < lines.length) {
+      const line = lines[i];
+
+      // Bullet list item?
+      const bulletMatch = line.match(/^\s*[-*]\s+(.*)$/);
+      if (bulletMatch) {
+        const items = [];
+        while (i < lines.length) {
+          const m = lines[i].match(/^\s*[-*]\s+(.*)$/);
+          if (!m) break;
+          items.push(m[1]);
+          i++;
+        }
+
+        elements.push(
+          <ul
+            key={`ul-${keyCounter++}`}
+            className="list-disc list-inside space-y-1"
+          >
+            {items.map((item, idx) => (
+              <li key={idx} className="text-sm">
+                {renderInlineMarkdown(item)}
+              </li>
+            ))}
+          </ul>
+        );
+        continue;
+      }
+
+      // Blank line -> just a spacer
+      if (line.trim() === "") {
+        elements.push(<br key={`br-${keyCounter++}`} />);
+        i++;
+        continue;
+      }
+
+      // Normal paragraph line
+      elements.push(
+        <p key={`p-${keyCounter++}`} className="text-sm">
+          {renderInlineMarkdown(line)}
+        </p>
+      );
+      i++;
+    }
+
+    return elements;
+  }
+
   function MessageBubble({ role, text }) {
     const isUser = role === "user";
+
     return (
       <div
         className={`mb-2 flex ${
@@ -75,13 +147,15 @@ export default function AIAssistant() {
         }`}
       >
         <div
-          className={`max-w-[75%] rounded-2xl px-3 py-2 text-sm leading-relaxed whitespace-pre-wrap ${
+          className={`max-w-[75%] rounded-2xl px-3 py-2 text-sm leading-relaxed ${
             isUser
               ? "bg-[#A6192E] text-white"
               : "bg-gray-100 text-gray-900"
           }`}
         >
-          {text}
+          {/* If you only want markdown parsing for assistant, do:
+              {isUser ? text : renderSimpleMarkdown(text)} */}
+          {renderSimpleMarkdown(text)}
         </div>
       </div>
     );
