@@ -1,5 +1,8 @@
 """Lightweight HTTP API to expose LLM, Chroma, and CourseDB functionality.
 
+Expected base url:
+http://127.0.0.1:8000/
+
 Endpoints:
 - GET  /health
 - GET  /courses               (query params: prefix)
@@ -252,7 +255,7 @@ def create_app() -> "FastAPI":
             # provide it in the system prompt while sending the original
             # user question as the user message.
             context = "\n\n".join(docs)
-            system_prompt = f"Answer the question [{message}] using the following context. If the question asks about classes YOU MUST use the real class codes given to you:"
+            system_prompt = f"Answer the question [{message}] using the following context. ONLY USE CONTEXT, DO NOT USE YOUR OWN INFORMATION:"
             resp = lite_llm.send_message(system_prompt, context)
             logging.getLogger("api_server").info("RAG context: %s", context)
             # logging.getLogger("api_server").info("llm response: %s", resp)
