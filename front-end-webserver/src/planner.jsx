@@ -72,10 +72,10 @@ export default function Planner() {
           {/* Degree Overview Heading */}
           {priorReq && (
             <>
-              <h1 className="text-4xl font-bold mb-6 -mt-8">
+              <h2 className="text-4xl font-bold text-black mb-6 text-left">
                 Degree Overview
                 {userInfo ? ` - ${userInfo.firstName} ${userInfo.lastName}` : ""}
-              </h1>
+              </h2>
               <DegreeOverview priorReq={priorReq} userInfo={userInfo} />
             </>
           )}
