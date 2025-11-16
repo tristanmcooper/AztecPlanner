@@ -145,11 +145,19 @@ export default function YearView({ yearLabel, data = {} }) {
                       )}
                     </div>
 
-                    {course.credit != null && (
-                      <div className="px-1.5 py-0.5 rounded-[10px] outline outline-[0.5px] outline-black text-xs font-medium mt-1.5">
-                        Units: {Number(course.credit).toFixed(1)}
+                    <div className="flex gap-2 mt-1.5">
+                    {course.credit && (
+                      <div className="px-1.5 py-0.5 rounded-[10px] outline outline-[0.5px] outline-black text-xs font-medium">
+                        Units: {course.credit}
                       </div>
                     )}
+
+                    {course.grade && (
+                      <div className="px-1.5 py-0.5 rounded-[10px] outline outline-[0.5px] outline-black text-xs font-medium">
+                        Grade: {course.grade}
+                      </div>
+                    )}
+                  </div>
                   </div>
                 ))}
 
