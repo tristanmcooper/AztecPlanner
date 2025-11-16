@@ -1,4 +1,4 @@
-# `react-router`
+# `react-router-dom`
 
 ## 6.26.2
 
@@ -6,6 +6,7 @@
 
 - Updated dependencies:
   - `@remix-run/router@1.19.2`
+  - `react-router@6.26.2`
 
 ## 6.26.1
 
@@ -14,6 +15,7 @@
 - Rename `unstable_patchRoutesOnMiss` to `unstable_patchRoutesOnNavigation` to match new behavior ([#11888](https://github.com/remix-run/react-router/pull/11888))
 - Updated dependencies:
   - `@remix-run/router@1.19.1`
+  - `react-router@6.26.1`
 
 ## 6.26.0
 
@@ -27,10 +29,15 @@
   - During initial hydration, `router.state.matches` will now include any partial matches so that we can render ancestor `HydrateFallback` components
 - Updated dependencies:
   - `@remix-run/router@1.19.0`
+  - `react-router@6.26.0`
 
 ## 6.25.1
 
-No significant changes to this package were made in this release. [See the repo `CHANGELOG.md`](https://github.com/remix-run/react-router/blob/main/CHANGELOG.md) for an overview of all changes in v6.25.1.
+### Patch Changes
+
+- Memoize some `RouterProvider` internals to reduce unnecessary re-renders ([#11803](https://github.com/remix-run/react-router/pull/11803))
+- Updated dependencies:
+  - `react-router@6.25.1`
 
 ## 6.25.0
 
@@ -43,17 +50,20 @@ No significant changes to this package were made in this release. [See the repo 
 
 ### Patch Changes
 
-- Fix regression and properly decode paths inside `useMatch` so matches/params reflect decoded params ([#11789](https://github.com/remix-run/react-router/pull/11789))
 - Updated dependencies:
+  - `react-router@6.25.0`
   - `@remix-run/router@1.18.0`
 
 ## 6.24.1
 
 ### Patch Changes
 
-- When using `future.v7_relativeSplatPath`, properly resolve relative paths in splat routes that are children of pathless routes ([#11633](https://github.com/remix-run/react-router/pull/11633))
+- Remove `polyfill.io` reference from warning message because the domain was sold and has since been determined to serve malware ([#11741](https://github.com/remix-run/react-router/pull/11741))
+  - See <https://sansec.io/research/polyfill-supply-chain-attack>
+- Export `NavLinkRenderProps` type for easier typing of custom `NavLink` callback ([#11553](https://github.com/remix-run/react-router/pull/11553))
 - Updated dependencies:
   - `@remix-run/router@1.17.1`
+  - `react-router@6.24.1`
 
 ## 6.24.0
 
@@ -65,16 +75,21 @@ No significant changes to this package were made in this release. [See the repo 
 
 ### Patch Changes
 
+- Fix `fetcher.submit` types - remove incorrect `navigate`/`fetcherKey`/`unstable_viewTransition` options because they are only relevant for `useSubmit` ([#11631](https://github.com/remix-run/react-router/pull/11631))
+- Allow falsy `location.state` values passed to `<StaticRouter>` ([#11495](https://github.com/remix-run/react-router/pull/11495))
 - Updated dependencies:
+  - `react-router@6.24.0`
   - `@remix-run/router@1.17.0`
 
 ## 6.23.1
 
 ### Patch Changes
 
-- allow undefined to be resolved with `<Await>` ([#11513](https://github.com/remix-run/react-router/pull/11513))
+- Check for `document` existence when checking `startViewTransition` ([#11544](https://github.com/remix-run/react-router/pull/11544))
+- Change the `react-router-dom/server` import back to `react-router-dom` instead of `index.ts` ([#11514](https://github.com/remix-run/react-router/pull/11514))
 - Updated dependencies:
   - `@remix-run/router@1.16.1`
+  - `react-router@6.23.1`
 
 ## 6.23.0
 
@@ -88,6 +103,7 @@ No significant changes to this package were made in this release. [See the repo 
 
 - Updated dependencies:
   - `@remix-run/router@1.16.0`
+  - `react-router@6.23.0`
 
 ## 6.22.3
 
@@ -95,6 +111,7 @@ No significant changes to this package were made in this release. [See the repo 
 
 - Updated dependencies:
   - `@remix-run/router@1.15.3`
+  - `react-router@6.22.3`
 
 ## 6.22.2
 
@@ -102,41 +119,52 @@ No significant changes to this package were made in this release. [See the repo 
 
 - Updated dependencies:
   - `@remix-run/router@1.15.2`
+  - `react-router@6.22.2`
 
 ## 6.22.1
 
 ### Patch Changes
 
-- Fix encoding/decoding issues with pre-encoded dynamic parameter values ([#11199](https://github.com/remix-run/react-router/pull/11199))
 - Updated dependencies:
+  - `react-router@6.22.1`
   - `@remix-run/router@1.15.1`
 
 ## 6.22.0
+
+### Minor Changes
+
+- Include a `window__reactRouterVersion` tag for CWV Report detection ([#11222](https://github.com/remix-run/react-router/pull/11222))
 
 ### Patch Changes
 
 - Updated dependencies:
   - `@remix-run/router@1.15.0`
+  - `react-router@6.22.0`
 
 ## 6.21.3
 
 ### Patch Changes
 
+- Fix `NavLink` `isPending` when a `basename` is used ([#11195](https://github.com/remix-run/react-router/pull/11195))
 - Remove leftover `unstable_` prefix from `Blocker`/`BlockerFunction` types ([#11187](https://github.com/remix-run/react-router/pull/11187))
+- Updated dependencies:
+  - `react-router@6.21.3`
 
 ## 6.21.2
 
 ### Patch Changes
 
+- Leverage `useId` for internal fetcher keys when available ([#11166](https://github.com/remix-run/react-router/pull/11166))
 - Updated dependencies:
   - `@remix-run/router@1.14.2`
+  - `react-router@6.21.2`
 
 ## 6.21.1
 
 ### Patch Changes
 
-- Fix bug with `route.lazy` not working correctly on initial SPA load when `v7_partialHydration` is specified ([#11121](https://github.com/remix-run/react-router/pull/11121))
 - Updated dependencies:
+  - `react-router@6.21.1`
   - `@remix-run/router@1.14.1`
 
 ## 6.21.0
@@ -276,9 +304,9 @@ No significant changes to this package were made in this release. [See the repo 
 
 ### Patch Changes
 
-- Properly handle falsy error values in ErrorBoundary's ([#11071](https://github.com/remix-run/react-router/pull/11071))
 - Updated dependencies:
   - `@remix-run/router@1.14.0`
+  - `react-router@6.21.0`
 
 ## 6.20.1
 
@@ -286,6 +314,7 @@ No significant changes to this package were made in this release. [See the repo 
 
 - Revert the `useResolvedPath` fix for splat routes due to a large number of applications that were relying on the buggy behavior (see <https://github.com/remix-run/react-router/issues/11052#issuecomment-1836589329>). We plan to re-introduce this fix behind a future flag in the next minor version. ([#11078](https://github.com/remix-run/react-router/pull/11078))
 - Updated dependencies:
+  - `react-router@6.20.1`
   - `@remix-run/router@1.13.1`
 
 ## 6.20.0
@@ -296,10 +325,8 @@ No significant changes to this package were made in this release. [See the repo 
 
 ### Patch Changes
 
-- Fix bug with `resolveTo` in splat routes ([#11045](https://github.com/remix-run/react-router/pull/11045))
-  - This is a follow up to [#10983](https://github.com/remix-run/react-router/pull/10983) to handle the few other code paths using `getPathContributingMatches`
-  - This removes the `UNSAFE_getPathContributingMatches` export from `@remix-run/router` since we no longer need this in the `react-router`/`react-router-dom` layers
 - Updated dependencies:
+  - `react-router@6.20.0`
   - `@remix-run/router@1.13.0`
 
 ## 6.19.0
@@ -307,51 +334,103 @@ No significant changes to this package were made in this release. [See the repo 
 ### Minor Changes
 
 - Add `unstable_flushSync` option to `useNavigate`/`useSumbit`/`fetcher.load`/`fetcher.submit` to opt-out of `React.startTransition` and into `ReactDOM.flushSync` for state updates ([#11005](https://github.com/remix-run/react-router/pull/11005))
-- Remove the `unstable_` prefix from the [`useBlocker`](https://reactrouter.com/en/main/hooks/use-blocker) hook as it's been in use for enough time that we are confident in the API. We do not plan to remove the prefix from `unstable_usePrompt` due to differences in how browsers handle `window.confirm` that prevent React Router from guaranteeing consistent/correct behavior. ([#10991](https://github.com/remix-run/react-router/pull/10991))
+- Allow `unstable_usePrompt` to accept a `BlockerFunction` in addition to a `boolean` ([#10991](https://github.com/remix-run/react-router/pull/10991))
 
 ### Patch Changes
 
-- Fix `useActionData` so it returns proper contextual action data and not _any_ action data in the tree ([#11023](https://github.com/remix-run/react-router/pull/11023))
-
-- Fix bug in `useResolvedPath` that would cause `useResolvedPath(".")` in a splat route to lose the splat portion of the URL path. ([#10983](https://github.com/remix-run/react-router/pull/10983))
-
-  - ⚠️ This fixes a quite long-standing bug specifically for `"."` paths inside a splat route which incorrectly dropped the splat portion of the URL. If you are relative routing via `"."` inside a splat route in your application you should double check that your logic is not relying on this buggy behavior and update accordingly.
-
+- Fix issue where a changing fetcher `key` in a `useFetcher` that remains mounted wasn't getting picked up ([#11009](https://github.com/remix-run/react-router/pull/11009))
+- Fix `useFormAction` which was incorrectly inheriting the `?index` query param from child route `action` submissions ([#11025](https://github.com/remix-run/react-router/pull/11025))
+- Fix `NavLink` `active` logic when `to` location has a trailing slash ([#10734](https://github.com/remix-run/react-router/pull/10734))
 - Updated dependencies:
+  - `react-router@6.19.0`
   - `@remix-run/router@1.12.0`
 
 ## 6.18.0
 
+### Minor Changes
+
+- Add support for manual fetcher key specification via `useFetcher({ key: string })` so you can access the same fetcher instance from different components in your application without prop-drilling ([RFC](https://github.com/remix-run/remix/discussions/7698)) ([#10960](https://github.com/remix-run/react-router/pull/10960))
+
+  - Fetcher keys are now also exposed on the fetchers returned from `useFetchers` so that they can be looked up by `key`
+
+- Add `navigate`/`fetcherKey` params/props to `useSumbit`/`Form` to support kicking off a fetcher submission under the hood with an optionally user-specified `key` ([#10960](https://github.com/remix-run/react-router/pull/10960))
+
+  - Invoking a fetcher in this way is ephemeral and stateless
+  - If you need to access the state of one of these fetchers, you will need to leverage `useFetcher({ key })` to look it up elsewhere
+
 ### Patch Changes
 
+- Adds a fetcher context to `RouterProvider` that holds completed fetcher data, in preparation for the upcoming future flag that will change the fetcher persistence/cleanup behavior ([#10961](https://github.com/remix-run/react-router/pull/10961))
 - Fix the `future` prop on `BrowserRouter`, `HashRouter` and `MemoryRouter` so that it accepts a `Partial<FutureConfig>` instead of requiring all flags to be included. ([#10962](https://github.com/remix-run/react-router/pull/10962))
 - Updated dependencies:
   - `@remix-run/router@1.11.0`
+  - `react-router@6.18.0`
 
 ## 6.17.0
 
+### Minor Changes
+
+- Add experimental support for the [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/ViewTransition) via `document.startViewTransition` to enable CSS animated transitions on SPA navigations in your application. ([#10916](https://github.com/remix-run/react-router/pull/10916))
+
+  The simplest approach to enabling a View Transition in your React Router app is via the new `<Link unstable_viewTransition>` prop. This will cause the navigation DOM update to be wrapped in `document.startViewTransition` which will enable transitions for the DOM update. Without any additional CSS styles, you'll get a basic cross-fade animation for your page.
+
+  If you need to apply more fine-grained styles for your animations, you can leverage the `unstable_useViewTransitionState` hook which will tell you when a transition is in progress and you can use that to apply classes or styles:
+
+  ```jsx
+  function ImageLink(to, src, alt) {
+    let isTransitioning = unstable_useViewTransitionState(to);
+    return (
+      <Link to={to} unstable_viewTransition>
+        <img
+          src={src}
+          alt={alt}
+          style={{
+            viewTransitionName: isTransitioning ? "image-expand" : "",
+          }}
+        />
+      </Link>
+    );
+  }
+  ```
+
+  You can also use the `<NavLink unstable_viewTransition>` shorthand which will manage the hook usage for you and automatically add a `transitioning` class to the `<a>` during the transition:
+
+  ```css
+  a.transitioning img {
+    view-transition-name: "image-expand";
+  }
+  ```
+
+  ```jsx
+  <NavLink to={to} unstable_viewTransition>
+    <img src={src} alt={alt} />
+  </NavLink>
+  ```
+
+  For an example usage of View Transitions with React Router, check out [our fork](https://github.com/brophdawg11/react-router-records) of the [Astro Records](https://github.com/Charca/astro-records) demo.
+
+  For more information on using the View Transitions API, please refer to the [Smooth and simple transitions with the View Transitions API](https://developer.chrome.com/docs/web-platform/view-transitions/) guide from the Google Chrome team.
+
+  Please note, that because the `ViewTransition` API is a DOM API, we now export a specific `RouterProvider` from `react-router-dom` with this functionality. If you are importing `RouterProvider` from `react-router`, then it will not support view transitions. ([#10928](https://github.com/remix-run/react-router/pull/10928)
+
 ### Patch Changes
 
-- Fix `RouterProvider` `future` prop type to be a `Partial<FutureConfig>` so that not all flags must be specified ([#10900](https://github.com/remix-run/react-router/pull/10900))
+- Log a warning and fail gracefully in `ScrollRestoration` when `sessionStorage` is unavailable ([#10848](https://github.com/remix-run/react-router/pull/10848))
 - Updated dependencies:
   - `@remix-run/router@1.10.0`
+  - `react-router@6.17.0`
 
 ## 6.16.0
 
 ### Minor Changes
 
-- In order to move towards stricter TypeScript support in the future, we're aiming to replace current usages of `any` with `unknown` on exposed typings for user-provided data. To do this in Remix v2 without introducing breaking changes in React Router v6, we have added generics to a number of shared types. These continue to default to `any` in React Router and are overridden with `unknown` in Remix. In React Router v7 we plan to move these to `unknown` as a breaking change. ([#10843](https://github.com/remix-run/react-router/pull/10843))
-  - `Location` now accepts a generic for the `location.state` value
-  - `ActionFunctionArgs`/`ActionFunction`/`LoaderFunctionArgs`/`LoaderFunction` now accept a generic for the `context` parameter (only used in SSR usages via `createStaticHandler`)
-  - The return type of `useMatches` (now exported as `UIMatch`) accepts generics for `match.data` and `match.handle` - both of which were already set to `unknown`
-- Move the `@private` class export `ErrorResponse` to an `UNSAFE_ErrorResponseImpl` export since it is an implementation detail and there should be no construction of `ErrorResponse` instances in userland. This frees us up to export a `type ErrorResponse` which correlates to an instance of the class via `InstanceType`. Userland code should only ever be using `ErrorResponse` as a type and should be type-narrowing via `isRouteErrorResponse`. ([#10811](https://github.com/remix-run/react-router/pull/10811))
-- Export `ShouldRevalidateFunctionArgs` interface ([#10797](https://github.com/remix-run/react-router/pull/10797))
-- Removed private/internal APIs only required for the Remix v1 backwards compatibility layer and no longer needed in Remix v2 (`_isFetchActionRedirect`, `_hasFetcherDoneAnything`) ([#10715](https://github.com/remix-run/react-router/pull/10715))
+- Updated dependencies:
+  - `@remix-run/router@1.9.0`
+  - `react-router@6.16.0`
 
 ### Patch Changes
 
-- Updated dependencies:
-  - `@remix-run/router@1.9.0`
+- Properly encode rendered URIs in server rendering to avoid hydration errors ([#10769](https://github.com/remix-run/react-router/pull/10769))
 
 ## 6.15.0
 
@@ -361,36 +440,97 @@ No significant changes to this package were made in this release. [See the repo 
 
 ### Patch Changes
 
-- Ensure `useRevalidator` is referentially stable across re-renders if revalidations are not actively occurring ([#10707](https://github.com/remix-run/react-router/pull/10707))
+- Fixes an edge-case affecting web extensions in Firefox that use `URLSearchParams` and the `useSearchParams` hook. ([#10620](https://github.com/remix-run/react-router/pull/10620))
+- Do not include hash in `useFormAction()` for unspecified actions since it cannot be determined on the server and causes hydration issues ([#10758](https://github.com/remix-run/react-router/pull/10758))
+- Reorder effects in `unstable_usePrompt` to avoid throwing an exception if the prompt is unblocked and a navigation is performed synchronously ([#10687](https://github.com/remix-run/react-router/pull/10687), [#10718](https://github.com/remix-run/react-router/pull/10718))
 - Updated dependencies:
   - `@remix-run/router@1.8.0`
+  - `react-router@6.15.0`
 
 ## 6.14.2
 
 ### Patch Changes
 
+- Properly decode element id when emulating hash scrolling via `<ScrollRestoration>` ([#10682](https://github.com/remix-run/react-router/pull/10682))
+- Add missing `<Form state>` prop to populate `history.state` on submission navigations ([#10630](https://github.com/remix-run/react-router/pull/10630))
+- Support proper hydration of `Error` subclasses such as `ReferenceError`/`TypeError` ([#10633](https://github.com/remix-run/react-router/pull/10633))
 - Updated dependencies:
   - `@remix-run/router@1.7.2`
+  - `react-router@6.14.2`
 
 ## 6.14.1
 
 ### Patch Changes
 
-- Fix loop in `unstable_useBlocker` when used with an unstable blocker function ([#10652](https://github.com/remix-run/react-router/pull/10652))
-- Fix issues with reused blockers on subsequent navigations ([#10656](https://github.com/remix-run/react-router/pull/10656))
 - Updated dependencies:
+  - `react-router@6.14.1`
   - `@remix-run/router@1.7.1`
 
 ## 6.14.0
 
+### Minor Changes
+
+- Add support for `application/json` and `text/plain` encodings for `useSubmit`/`fetcher.submit`. To reflect these additional types, `useNavigation`/`useFetcher` now also contain `navigation.json`/`navigation.text` and `fetcher.json`/`fetcher.text` which include the json/text submission if applicable ([#10413](https://github.com/remix-run/react-router/pull/10413))
+
+  ```jsx
+  // The default behavior will still serialize as FormData
+  function Component() {
+    let navigation = useNavigation();
+    let submit = useSubmit();
+    submit({ key: "value" }, { method: "post" });
+    // navigation.formEncType => "application/x-www-form-urlencoded"
+    // navigation.formData    => FormData instance
+  }
+
+  async function action({ request }) {
+    // request.headers.get("Content-Type") => "application/x-www-form-urlencoded"
+    // await request.formData()            => FormData instance
+  }
+  ```
+
+  ```js
+  // Opt-into JSON encoding with `encType: "application/json"`
+  function Component() {
+    let navigation = useNavigation();
+    let submit = useSubmit();
+    submit({ key: "value" }, { method: "post", encType: "application/json" });
+    // navigation.formEncType => "application/json"
+    // navigation.json        => { key: "value" }
+  }
+
+  async function action({ request }) {
+    // request.headers.get("Content-Type") => "application/json"
+    // await request.json()                => { key: "value" }
+  }
+  ```
+
+  ```js
+  // Opt-into text encoding with `encType: "text/plain"`
+  function Component() {
+    let navigation = useNavigation();
+    let submit = useSubmit();
+    submit("Text submission", { method: "post", encType: "text/plain" });
+    // navigation.formEncType => "text/plain"
+    // navigation.text        => "Text submission"
+  }
+
+  async function action({ request }) {
+    // request.headers.get("Content-Type") => "text/plain"
+    // await request.text()                => "Text submission"
+  }
+  ```
+
 ### Patch Changes
 
-- Strip `basename` from locations provided to `unstable_useBlocker` functions to match `useLocation` ([#10573](https://github.com/remix-run/react-router/pull/10573))
-- Fix `generatePath` when passed a numeric `0` value parameter ([#10612](https://github.com/remix-run/react-router/pull/10612))
-- Fix `unstable_useBlocker` key issues in `StrictMode` ([#10573](https://github.com/remix-run/react-router/pull/10573))
+- When submitting a form from a `submitter` element, prefer the built-in `new FormData(form, submitter)` instead of the previous manual approach in modern browsers (those that support the new `submitter` parameter) ([#9865](https://github.com/remix-run/react-router/pull/9865), [#10627](https://github.com/remix-run/react-router/pull/10627))
+  - For browsers that don't support it, we continue to just append the submit button's entry to the end, and we also add rudimentary support for `type="image"` buttons
+  - If developers want full spec-compliant support for legacy browsers, they can use the `formdata-submitter-polyfill`
+- Call `window.history.pushState/replaceState` before updating React Router state (instead of after) so that `window.location` matches `useLocation` during synchronous React 17 rendering ([#10448](https://github.com/remix-run/react-router/pull/10448))
+  - ⚠️ However, generally apps should not be relying on `window.location` and should always reference `useLocation` when possible, as `window.location` will not be in sync 100% of the time (due to `popstate` events, concurrent mode, etc.)
 - Fix `tsc --skipLibCheck:false` issues on React 17 ([#10622](https://github.com/remix-run/react-router/pull/10622))
 - Upgrade `typescript` to 5.1 ([#10581](https://github.com/remix-run/react-router/pull/10581))
 - Updated dependencies:
+  - `react-router@6.14.0`
   - `@remix-run/router@1.7.0`
 
 ## 6.13.0
@@ -422,6 +562,8 @@ No significant changes to this package were made in this release. [See the repo 
 ### Patch Changes
 
 - Work around webpack/terser `React.startTransition` minification bug in production mode ([#10588](https://github.com/remix-run/react-router/pull/10588))
+- Updated dependencies:
+  - `react-router@6.13.0`
 
 ## 6.12.1
 
@@ -431,6 +573,8 @@ No significant changes to this package were made in this release. [See the repo 
 ### Patch Changes
 
 - Adjust feature detection of `React.startTransition` to fix webpack + react 17 compilation error ([#10569](https://github.com/remix-run/react-router/pull/10569))
+- Updated dependencies:
+  - `react-router@6.12.1`
 
 ## 6.12.0
 
@@ -440,40 +584,44 @@ No significant changes to this package were made in this release. [See the repo 
 
 ### Patch Changes
 
+- Re-throw `DOMException` (`DataCloneError`) when attempting to perform a `PUSH` navigation with non-serializable state. ([#10427](https://github.com/remix-run/react-router/pull/10427))
 - Updated dependencies:
   - `@remix-run/router@1.6.3`
+  - `react-router@6.12.0`
 
 ## 6.11.2
 
 ### Patch Changes
 
-- Fix `basename` duplication in descendant `<Routes>` inside a `<RouterProvider>` ([#10492](https://github.com/remix-run/react-router/pull/10492))
+- Export `SetURLSearchParams` type ([#10444](https://github.com/remix-run/react-router/pull/10444))
 - Updated dependencies:
+  - `react-router@6.11.2`
   - `@remix-run/router@1.6.2`
 
 ## 6.11.1
 
 ### Patch Changes
 
-- Fix usage of `Component` API within descendant `<Routes>` ([#10434](https://github.com/remix-run/react-router/pull/10434))
-- Fix bug when calling `useNavigate` from `<Routes>` inside a `<RouterProvider>` ([#10432](https://github.com/remix-run/react-router/pull/10432))
-- Fix usage of `<Navigate>` in strict mode when using a data router ([#10435](https://github.com/remix-run/react-router/pull/10435))
 - Updated dependencies:
+  - `react-router@6.11.1`
   - `@remix-run/router@1.6.1`
 
 ## 6.11.0
 
+### Minor Changes
+
+- Enable `basename` support in `useFetcher` ([#10336](https://github.com/remix-run/react-router/pull/10336))
+  - If you were previously working around this issue by manually prepending the `basename` then you will need to remove the manually prepended `basename` from your `fetcher` calls (`fetcher.load('/basename/route') -> fetcher.load('/route')`)
+
 ### Patch Changes
 
-- Log loader/action errors to the console in dev for easier stack trace evaluation ([#10286](https://github.com/remix-run/react-router/pull/10286))
-- Fix bug preventing rendering of descendant `<Routes>` when `RouterProvider` errors existed ([#10374](https://github.com/remix-run/react-router/pull/10374))
 - Fix inadvertent re-renders when using `Component` instead of `element` on a route definition ([#10287](https://github.com/remix-run/react-router/pull/10287))
-- Fix detection of `useNavigate` in the render cycle by setting the `activeRef` in a layout effect, allowing the `navigate` function to be passed to child components and called in a `useEffect` there. ([#10394](https://github.com/remix-run/react-router/pull/10394))
+- Fail gracefully on `<Link to="//">` and other invalid URL values ([#10367](https://github.com/remix-run/react-router/pull/10367))
 - Switched from `useSyncExternalStore` to `useState` for internal `@remix-run/router` router state syncing in `<RouterProvider>`. We found some [subtle bugs](https://codesandbox.io/s/use-sync-external-store-loop-9g7b81) where router state updates got propagated _before_ other normal `useState` updates, which could lead to footguns in `useEffect` calls. ([#10377](https://github.com/remix-run/react-router/pull/10377), [#10409](https://github.com/remix-run/react-router/pull/10409))
-- Allow `useRevalidator()` to resolve a loader-driven error boundary scenario ([#10369](https://github.com/remix-run/react-router/pull/10369))
-- Avoid unnecessary unsubscribe/resubscribes on router state changes ([#10409](https://github.com/remix-run/react-router/pull/10409))
+- Add static prop to `StaticRouterProvider`'s internal `Router` component ([#10401](https://github.com/remix-run/react-router/pull/10401))
 - When using a `RouterProvider`, `useNavigate`/`useSubmit`/`fetcher.submit` are now stable across location changes, since we can handle relative routing via the `@remix-run/router` instance and get rid of our dependence on `useLocation()`. When using `BrowserRouter`, these hooks remain unstable across location changes because they still rely on `useLocation()`. ([#10336](https://github.com/remix-run/react-router/pull/10336))
 - Updated dependencies:
+  - `react-router@6.11.0`
   - `@remix-run/router@1.6.0`
 
 ## 6.10.0
@@ -491,9 +639,10 @@ No significant changes to this package were made in this release. [See the repo 
 
 ### Patch Changes
 
-- Fix route ID generation when using Fragments in `createRoutesFromElements` ([#10193](https://github.com/remix-run/react-router/pull/10193))
+- Fix `createStaticHandler` to also check for `ErrorBoundary` on routes in addition to `errorElement` ([#10190](https://github.com/remix-run/react-router/pull/10190))
 - Updated dependencies:
   - `@remix-run/router@1.5.0`
+  - `react-router@6.10.0`
 
 ## 6.9.0
 
@@ -596,53 +745,76 @@ No significant changes to this package were made in this release. [See the repo 
   🙌 Huge thanks to @rossipedia for the [Initial Proposal](https://github.com/remix-run/react-router/discussions/9826) and [POC Implementation](https://github.com/remix-run/react-router/pull/9830).
 
 - Updated dependencies:
+  - `react-router@6.9.0`
   - `@remix-run/router@1.4.0`
-
-### Patch Changes
-
-- Fix `generatePath` incorrectly applying parameters in some cases ([#10078](https://github.com/remix-run/react-router/pull/10078))
-- Improve memoization for context providers to avoid unnecessary re-renders ([#9983](https://github.com/remix-run/react-router/pull/9983))
 
 ## 6.8.2
 
 ### Patch Changes
 
+- Treat same-origin absolute URLs in `<Link to>` as external if they are outside of the router `basename` ([#10135](https://github.com/remix-run/react-router/pull/10135))
+- Fix `useBlocker` to return `IDLE_BLOCKER` during SSR ([#10046](https://github.com/remix-run/react-router/pull/10046))
+- Fix SSR of absolute `<Link to>` urls ([#10112](https://github.com/remix-run/react-router/pull/10112))
+- Properly escape HTML characters in `StaticRouterProvider` serialized hydration data ([#10068](https://github.com/remix-run/react-router/pull/10068))
 - Updated dependencies:
   - `@remix-run/router@1.3.3`
+  - `react-router@6.8.2`
 
 ## 6.8.1
 
 ### Patch Changes
 
-- Remove inaccurate console warning for POP navigations and update active blocker logic ([#10030](https://github.com/remix-run/react-router/pull/10030))
+- Improved absolute url detection in `Link` component (now also supports `mailto:` urls) ([#9994](https://github.com/remix-run/react-router/pull/9994))
+- Fix partial object (search or hash only) pathnames losing current path value ([#10029](https://github.com/remix-run/react-router/pull/10029))
 - Updated dependencies:
+  - `react-router@6.8.1`
   - `@remix-run/router@1.3.2`
 
 ## 6.8.0
 
+### Minor Changes
+
+- Support absolute URLs in `<Link to>`. If the URL is for the current origin, it will still do a client-side navigation. If the URL is for a different origin then it will do a fresh document request for the new origin. ([#9900](https://github.com/remix-run/react-router/pull/9900))
+
+  ```tsx
+  <Link to="https://neworigin.com/some/path">    {/* Document request */}
+  <Link to="//neworigin.com/some/path">          {/* Document request */}
+  <Link to="https://www.currentorigin.com/path"> {/* Client-side navigation */}
+  ```
+
 ### Patch Changes
 
+- Fix bug with search params removal via `useSearchParams` ([#9969](https://github.com/remix-run/react-router/pull/9969))
+- Respect `preventScrollReset` on `<fetcher.Form>` ([#9963](https://github.com/remix-run/react-router/pull/9963))
+- Fix navigation for hash routers on manual URL changes ([#9980](https://github.com/remix-run/react-router/pull/9980))
+- Use `pagehide` instead of `beforeunload` for `<ScrollRestoration>`. This has better cross-browser support, specifically on Mobile Safari. ([#9945](https://github.com/remix-run/react-router/pull/9945))
 - Updated dependencies:
   - `@remix-run/router@1.3.1`
+  - `react-router@6.8.0`
 
 ## 6.7.0
 
 ### Minor Changes
 
 - Add `unstable_useBlocker` hook for blocking navigations within the app's location origin ([#9709](https://github.com/remix-run/react-router/pull/9709))
+- Add `unstable_usePrompt` hook for blocking navigations within the app's location origin ([#9932](https://github.com/remix-run/react-router/pull/9932))
+- Add `preventScrollReset` prop to `<Form>` ([#9886](https://github.com/remix-run/react-router/pull/9886))
 
 ### Patch Changes
 
-- Fix `generatePath` when optional params are present ([#9764](https://github.com/remix-run/react-router/pull/9764))
-- Update `<Await>` to accept `ReactNode` as children function return result ([#9896](https://github.com/remix-run/react-router/pull/9896))
+- Added pass-through event listener options argument to `useBeforeUnload` ([#9709](https://github.com/remix-run/react-router/pull/9709))
+- Streamline jsdom bug workaround in tests ([#9824](https://github.com/remix-run/react-router/pull/9824))
 - Updated dependencies:
   - `@remix-run/router@1.3.0`
+  - `react-router@6.7.0`
 
 ## 6.6.2
 
 ### Patch Changes
 
 - Ensure `useId` consistency during SSR ([#9805](https://github.com/remix-run/react-router/pull/9805))
+- Updated dependencies:
+  - `react-router@6.6.2`
 
 ## 6.6.1
 
@@ -650,68 +822,31 @@ No significant changes to this package were made in this release. [See the repo 
 
 - Updated dependencies:
   - `@remix-run/router@1.2.1`
+  - `react-router@6.6.1`
 
 ## 6.6.0
 
+### Minor Changes
+
+- Add `useBeforeUnload()` hook ([#9664](https://github.com/remix-run/react-router/pull/9664))
+- Remove `unstable_` prefix from `createStaticHandler`/`createStaticRouter`/`StaticRouterProvider` ([#9738](https://github.com/remix-run/react-router/pull/9738))
+
 ### Patch Changes
 
-- Prevent `useLoaderData` usage in `errorElement` ([#9735](https://github.com/remix-run/react-router/pull/9735))
+- Proper hydration of `Error` objects from `StaticRouterProvider` ([#9664](https://github.com/remix-run/react-router/pull/9664))
+- Support uppercase `<Form method>` and `useSubmit` method values ([#9664](https://github.com/remix-run/react-router/pull/9664))
+- Skip initial scroll restoration for SSR apps with `hydrationData` ([#9664](https://github.com/remix-run/react-router/pull/9664))
+- Fix `<button formmethod>` form submission overriddes ([#9664](https://github.com/remix-run/react-router/pull/9664))
 - Updated dependencies:
   - `@remix-run/router@1.2.0`
+  - `react-router@6.6.0`
 
 ## 6.5.0
 
-This release introduces support for [Optional Route Segments](https://github.com/remix-run/react-router/issues/9546). Now, adding a `?` to the end of any path segment will make that entire segment optional. This works for both static segments and dynamic parameters.
-
-**Optional Params Examples**
-
-- `<Route path=":lang?/about>` will match:
-  - `/:lang/about`
-  - `/about`
-- `<Route path="/multistep/:widget1?/widget2?/widget3?">` will match:
-  - `/multistep`
-  - `/multistep/:widget1`
-  - `/multistep/:widget1/:widget2`
-  - `/multistep/:widget1/:widget2/:widget3`
-
-**Optional Static Segment Example**
-
-- `<Route path="/home?">` will match:
-  - `/`
-  - `/home`
-- `<Route path="/fr?/about">` will match:
-  - `/about`
-  - `/fr/about`
-
-### Minor Changes
-
-- Allows optional routes and optional static segments ([#9650](https://github.com/remix-run/react-router/pull/9650))
-
 ### Patch Changes
 
-- Stop incorrectly matching on partial named parameters, i.e. `<Route path="prefix-:param">`, to align with how splat parameters work. If you were previously relying on this behavior then it's recommended to extract the static portion of the path at the `useParams` call site: ([#9506](https://github.com/remix-run/react-router/pull/9506))
-
-```jsx
-// Old behavior at URL /prefix-123
-<Route path="prefix-:id" element={<Comp /> }>
-
-function Comp() {
-  let params = useParams(); // { id: '123' }
-  let id = params.id; // "123"
-  ...
-}
-
-// New behavior at URL /prefix-123
-<Route path=":id" element={<Comp /> }>
-
-function Comp() {
-  let params = useParams(); // { id: 'prefix-123' }
-  let id = params.id.replace(/^prefix-/, ''); // "123"
-  ...
-}
-```
-
 - Updated dependencies:
+  - `react-router@6.5.0`
   - `@remix-run/router@1.1.0`
 
 ## 6.4.5
@@ -720,39 +855,49 @@ function Comp() {
 
 - Updated dependencies:
   - `@remix-run/router@1.0.5`
+  - `react-router@6.4.5`
 
 ## 6.4.4
 
 ### Patch Changes
 
+- Fix issues with encoded characters in `NavLink` and descendant `<Routes>` ([#9589](https://github.com/remix-run/react-router/pull/9589), [#9647](https://github.com/remix-run/react-router/pull/9647))
+- Properly serialize/deserialize `ErrorResponse` instances when using built-in hydration ([#9593](https://github.com/remix-run/react-router/pull/9593))
+- Support `basename` in static data routers ([#9591](https://github.com/remix-run/react-router/pull/9591))
 - Updated dependencies:
   - `@remix-run/router@1.0.4`
+  - `react-router@6.4.4`
 
 ## 6.4.3
 
 ### Patch Changes
 
-- `useRoutes` should be able to return `null` when passing `locationArg` ([#9485](https://github.com/remix-run/react-router/pull/9485))
-- fix `initialEntries` type in `createMemoryRouter` ([#9498](https://github.com/remix-run/react-router/pull/9498))
+- Fix hrefs generated for `createHashRouter` ([#9409](https://github.com/remix-run/react-router/pull/9409))
+- fix encoding/matching issues with special chars ([#9477](https://github.com/remix-run/react-router/pull/9477), [#9496](https://github.com/remix-run/react-router/pull/9496))
+- Properly support `index` routes with a `path` in `useResolvedPath` ([#9486](https://github.com/remix-run/react-router/pull/9486))
+- Respect `relative=path` prop on `NavLink` ([#9453](https://github.com/remix-run/react-router/pull/9453))
+- Fix `NavLink` behavior for root urls ([#9497](https://github.com/remix-run/react-router/pull/9497))
 - Updated dependencies:
   - `@remix-run/router@1.0.3`
+  - `react-router@6.4.3`
 
 ## 6.4.2
 
 ### Patch Changes
 
-- Fix `IndexRouteObject` and `NonIndexRouteObject` types to make `hasErrorElement` optional ([#9394](https://github.com/remix-run/react-router/pull/9394))
+- Respect `basename` in `useFormAction` ([#9352](https://github.com/remix-run/react-router/pull/9352))
 - Enhance console error messages for invalid usage of data router hooks ([#9311](https://github.com/remix-run/react-router/pull/9311))
 - If an index route has children, it will result in a runtime error. We have strengthened our `RouteObject`/`RouteProps` types to surface the error in TypeScript. ([#9366](https://github.com/remix-run/react-router/pull/9366))
 - Updated dependencies:
+  - `react-router@6.4.2`
   - `@remix-run/router@1.0.2`
 
 ## 6.4.1
 
 ### Patch Changes
 
-- Preserve state from `initialEntries` ([#9288](https://github.com/remix-run/react-router/pull/9288))
 - Updated dependencies:
+  - `react-router@6.4.1`
   - `@remix-run/router@1.0.1`
 
 ## 6.4.0
@@ -761,17 +906,25 @@ Whoa this is a big one! `6.4.0` brings all the data loading and mutation APIs ov
 
 **New APIs**
 
-- Create your router with `createMemoryRouter`
+- Create your router with `createMemoryRouter`/`createBrowserRouter`/`createHashRouter`
 - Render your router with `<RouterProvider>`
 - Load data with a Route `loader` and mutate with a Route `action`
 - Handle errors with Route `errorElement`
+- Submit data with the new `<Form>` component
+- Perform in-page data loads and mutations with `useFetcher()`
 - Defer non-critical data with `defer` and `Await`
+- Manage scroll position with `<ScrollRestoration>`
+
+**New Features**
+
+- Perform path-relative navigations with `<Link relative="path">` (#9160)
 
 **Bug Fixes**
 
 - Path resolution is now trailing slash agnostic (#8861)
 - `useLocation` returns the scoped location inside a `<Routes location>` component (#9094)
+- respect the `<Link replace>` prop if it is defined (#8779)
 
 **Updated Dependencies**
 
-- `@remix-run/router@1.0.0`
+- `react-router@6.4.0`
