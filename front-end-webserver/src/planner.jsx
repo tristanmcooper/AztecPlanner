@@ -4,20 +4,19 @@ import CourseSearch from "./CourseSearch";
 import AIAssistant from "./AIAssistant";
 import YearView from "./YearView";
 import DegreeOverview from "./DegreeOverview";
-import SemesterPlanner from "./SemesterPlanner";
 import "./index.css";
 
 export default function Planner() {
   const location = useLocation();
-  const { degreeData, userReq, priorReq, todoReq, classData, userInfo } = location.state || {};
   const navigate = useNavigate();
+  const { degreeData, userReq, priorReq, todoReq, classData, userInfo } = location.state || {};
 
-  // --- Draggable sidebar width (vertical splitter) ---
-  const [sidebarWidth, setSidebarWidth] = useState(33); // %
+  // --- Vertical Sidebar ---
+  const [sidebarWidth, setSidebarWidth] = useState(33);
   const [isDraggingCol, setIsDraggingCol] = useState(false);
 
-  // --- Draggable divider between CourseSearch & AI (horizontal splitter) ---
-  const [topPanePct, setTopPanePct] = useState(35); // %
+  // --- Horizontal Split (CourseSearch / AI Assistant) ---
+  const [topPanePct, setTopPanePct] = useState(35);
   const [isDraggingRow, setIsDraggingRow] = useState(false);
   const sidebarRef = useRef(null);
 
@@ -25,16 +24,12 @@ export default function Planner() {
   useEffect(() => {
     if (!isDraggingCol) return;
 
-    function handleMouseMove(e) {
+    const handleMouseMove = (e) => {
       const total = window.innerWidth || 1;
       const rawPct = ((total - e.clientX) / total) * 100;
-      const clamped = Math.min(45, Math.max(20, rawPct)); // 20–45% sidebar
-      setSidebarWidth(clamped);
-    }
-
-    function handleMouseUp() {
-      setIsDraggingCol(false);
-    }
+      setSidebarWidth(Math.min(45, Math.max(20, rawPct)));
+    };
+    const handleMouseUp = () => setIsDraggingCol(false);
 
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseup", handleMouseUp);
@@ -48,18 +43,13 @@ export default function Planner() {
   useEffect(() => {
     if (!isDraggingRow) return;
 
-    function handleMouseMove(e) {
+    const handleMouseMove = (e) => {
       if (!sidebarRef.current) return;
       const rect = sidebarRef.current.getBoundingClientRect();
-      const offsetY = e.clientY - rect.top;
-      const pct = (offsetY / rect.height) * 100;
-      const clamped = Math.min(80, Math.max(20, pct)); // each gets at least 20%
-      setTopPanePct(clamped);
-    }
-
-    function handleMouseUp() {
-      setIsDraggingRow(false);
-    }
+      const pct = ((e.clientY - rect.top) / rect.height) * 100;
+      setTopPanePct(Math.min(80, Math.max(20, pct)));
+    };
+    const handleMouseUp = () => setIsDraggingRow(false);
 
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseup", handleMouseUp);
@@ -79,24 +69,19 @@ export default function Planner() {
         style={{ width: `${mainWidth}%` }}
       >
         <div className="bg-white p-4">
-          {/* --- Degree Overview heading --- */}
-          <h2 className="text-5xl font-bold text-black mb-6 mt-1 text-left">
-            Degree Overview{userInfo ? ` - ${userInfo.firstName} ${userInfo.lastName}` : ""}
-          </h2>
+          {/* Degree Overview Heading */}
+          {priorReq && (
+            <>
+              <h1 className="text-4xl font-bold mb-6 -mt-8">
+                Degree Overview
+                {userInfo ? ` - ${userInfo.firstName} ${userInfo.lastName}` : ""}
+              </h1>
+              <DegreeOverview priorReq={priorReq} userInfo={userInfo} />
+            </>
+          )}
 
-          <div className="space-y-10">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold">Degree Overview</h2>
-              <button
-                className="ml-4 px-3 py-1 bg-blue-600 text-white rounded"
-                onClick={() => {
-                  // navigate to semester planner and pass degreeData in navigation state
-                  navigate('/semester-planner', { state: { degreeData, priorReq, todoReq, userInfo } });
-                }}
-              >
-                Open Semester Planner
-              </button>
-            </div>
+          {/* Year Views */}
+          <div className="mt-6 space-y-10">
             {degreeData
               ? Object.entries(degreeData).map(([year, semesters]) => (
                   <YearView
@@ -113,27 +98,22 @@ export default function Planner() {
                   <YearView yearLabel="2025 – 2026" />
                 </>
               )}
-            {/* SemesterPlanner receives degreeData from Planner via separate page route */}
           </div>
         </div>
       </main>
-
 
       {/* --- Vertical Split Handle --- */}
       <div
         className={`h-full w-[6px] cursor-col-resize transition-colors ${
           isDraggingCol ? "bg-gray-400" : "bg-gray-200 hover:bg-gray-300"
         }`}
-        onMouseDown={(e) => {
-          e.preventDefault();
-          setIsDraggingCol(true);
-        }}
+        onMouseDown={(e) => { e.preventDefault(); setIsDraggingCol(true); }}
       />
 
       {/* --- Sidebar --- */}
       <aside
         ref={sidebarRef}
-        className="h-full flex flex-col bg-gray-50 overflow-hidden"
+        className="h-full flex flex-col bg-gray-50 overflow-hidden relative"
         style={{ width: `${sidebarWidth}%` }}
       >
         {/* --- CourseSearch --- */}
@@ -146,18 +126,24 @@ export default function Planner() {
           className={`w-full h-[6px] cursor-row-resize transition-colors ${
             isDraggingRow ? "bg-gray-400" : "bg-gray-200 hover:bg-gray-300"
           }`}
-          onMouseDown={(e) => {
-            e.preventDefault();
-            setIsDraggingRow(true);
-          }}
+          onMouseDown={(e) => { e.preventDefault(); setIsDraggingRow(true); }}
         />
 
-        {/* --- AIAssistant --- */}
-        <div
-          className="overflow-y-auto"
-          style={{ height: `${100 - topPanePct}%` }}
-        >
+        {/* --- AI Assistant + Semester Planner button --- */}
+        <div className="overflow-y-auto relative" style={{ height: `${100 - topPanePct}%` }}>
           <AIAssistant />
+
+          {/* Button in top-right corner */}
+          <div className="absolute top-2 right-2 z-10">
+            <button
+              className="px-3 py-1 bg-[#A6192E] text-white rounded"
+              onClick={() => navigate('/semester-planner', {
+                state: { degreeData, priorReq, todoReq, userInfo }
+              })}
+            >
+              Open Semester Planner
+            </button>
+          </div>
         </div>
       </aside>
     </div>
