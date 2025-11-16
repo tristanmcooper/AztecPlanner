@@ -51,6 +51,7 @@ export default function AIAssistant() {
 
       <div className="ai-chat overflow-auto mb-4 flex-1" aria-live="polite">
         {history.length === 0 && (
+<<<<<<< Updated upstream
           <div className="text-gray-600 text-center">
             <p className="font-medium mb-12">Ask me anything about courses!</p>
             <div className="flex flex-col space-y-1">
@@ -70,6 +71,16 @@ export default function AIAssistant() {
               ))}
             </div>
           </div>
+=======
+        <div className="text-gray-500 italic">
+            Ask about ... <br></br>
+            - Dominic Dabish's Rate My Professor reviews <br></br>
+            - High rated courses that fulfill a specific degree requirement <br></br>
+            - Possible substitutions for a course (that still target the same reqs) <br></br>
+            - Course suggestions based on your interests <br></br>
+            - What are some classes that cover data structures? <br></br>
+        </div>
+>>>>>>> Stashed changes
         )}
 
         {history.map((h, i) => (
