@@ -19,7 +19,7 @@ export default function Planner() {
               {Object.entries(degreeData).map(([year, semesters]) => (
                 <div key={year}>
                   <h2 className="text-lg font-semibold mb-2">{year} Academic Year</h2>
-                  {Object.entries(semesters).map(([term, classes]) => (
+                   {Object.entries(semesters).map(([term, classes]) => (
                     <div key={term} className="mb-4 border rounded-lg bg-gray-50 p-3">
                       <h3 className="text-md font-semibold mb-2">{term} Semester</h3>
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
