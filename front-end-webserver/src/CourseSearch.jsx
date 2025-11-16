@@ -344,9 +344,11 @@ export default function CourseSearch() {
           </div>
         ) : (
           // LIST VIEW
-          <ul className="divide-y divide-gray-100 overflow-auto flex-1 w-full">
+          <div className="flex flex-col gap-3 overflow-auto flex-1 p-1">
             {results.length === 0 && !loading && (
-              <li className="py-2 text-gray-500 italic">No results</li>
+              <div className="text-gray-500 italic text-center py-4">
+                No results
+              </div>
             )}
 
             {results.map((course) => {
@@ -354,11 +356,11 @@ export default function CourseSearch() {
               const professors = course.professors || [];
 
               return (
-                <li
+                <div
                   key={code}
-                  className="py-2"
                   draggable
                   onDragStart={(e) => handleDragStart(e, course)}
+                  className="cursor-grab active:cursor-grabbing select-none border border-gray-200 bg-white rounded-xl p-3 shadow-sm hover:shadow-md hover:border-blue-300 transition-all duration-150"
                 >
                   <button
                     type="button"
@@ -366,35 +368,37 @@ export default function CourseSearch() {
                       setSelectedCourse(course);
                       setExpandedProfessorId(null);
                     }}
-                    className="text-left w-full"
+                    className="text-left w-full h-full"
                   >
-                    <div className="flex items-center justify-between">
-                      <div className="font-semibold">
-                        {course.code}{" "}
-                        <span className="font-normal text-gray-700">
-                          {course.name}
-                        </span>
-                      </div>
-                      <div className="text-xs text-gray-600 ml-2 whitespace-nowrap">
-                        {course.units && <span>{course.units} units</span>}
-                        {course.typically_offered && (
-                          <span className="ml-2">
-                            {course.typically_offered}
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <div className="font-semibold text-gray-900">
+                          {course.code}{" "}
+                          <span className="font-normal text-gray-700">
+                            {course.name}
                           </span>
-                        )}
+                        </div>
+                        <div className="text-xs text-gray-600 mt-0.5">
+                          {course.units && <span>{course.units} units</span>}
+                          {course.typically_offered && (
+                            <span className="ml-2">{course.typically_offered}</span>
+                          )}
+                        </div>
                       </div>
                     </div>
-                    <div className="text-sm text-gray-700 mt-1 line-clamp-2">
+
+                    <div className="text-sm text-gray-700 mt-2 line-clamp-2">
                       {course.description}
                     </div>
-                    <div className="text-xs text-gray-500 mt-1">
+
+                    <div className="text-xs text-gray-500 mt-2">
                       {summarizeProfessors(professors)}
                     </div>
                   </button>
-                </li>
+                </div>
               );
             })}
-          </ul>
+          </div>
         )}
       </div>
     </div>

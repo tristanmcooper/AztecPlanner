@@ -21,11 +21,37 @@ export default function YearView({ yearLabel, data = {} }) {
 
   const handleDrop = (targetTerm, targetIndex, e) => {
     e.preventDefault();
-    const dragInfo = JSON.parse(e.dataTransfer.getData("dragInfo"));
+
+    let dragInfo;
+    try {
+      dragInfo = e.dataTransfer.getData("dragInfo")
+        ? JSON.parse(e.dataTransfer.getData("dragInfo"))
+        : JSON.parse(e.dataTransfer.getData("application/json"));
+    } catch {
+      dragInfo = null;
+    }
+
     if (!dragInfo) return;
 
-    const { term: sourceTerm, index: sourceIndex, course } = dragInfo;
+    // If dropped from CourseSearch
+    if (dragInfo.code && !dragInfo.term) {
+      const course = dragInfo;
+      setDropped((prev) => {
+        const updated = { ...prev };
+        for (let t of terms) updated[t] = [...prev[t]];
+        updated[targetTerm][targetIndex] = {
+          ...course,
+          title: course.name || course.title || "",
+          credit: course.units || course.credit || "",
+          status: "Planned",
+        };
+        return updated;
+      });
+      return;
+    }
 
+    // If dropped from another YearView slot
+    const { term: sourceTerm, index: sourceIndex, course } = dragInfo;
     setDropped((prev) => {
       const updated = { ...prev };
       for (let t of terms) updated[t] = [...prev[t]];
