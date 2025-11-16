@@ -22,6 +22,37 @@ export default function UploadDegreeAudit() {
         const parser = new DOMParser();
         const doc = parser.parseFromString(htmlText, "text/html");
 
+        // Extract name and major
+        const colMd8 = doc.querySelector(".card-header .col-md-8");
+        const fullName = colMd8?.querySelector("div.h5")?.textContent.trim() || "";
+        let major = colMd8?.querySelector("h1.h5")?.textContent.trim() || "";
+        major = major
+        .toLowerCase() // make everything lowercase first
+        .split(" ")
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+
+        // Split full name into first and last
+        let firstName = "";
+        let lastName = "";
+        if (fullName.includes(",")) {
+          const parts = fullName.split(",");
+          lastName = parts[0].trim();
+          firstName = parts[1].trim();
+        }
+        // Parse GPA from 6th <td class="gpa number">
+        const gpaEls = doc.querySelectorAll("td.gpa.number");
+        const gpaText = gpaEls[5].textContent.trim(); // 0-based index
+        let gpa = parseFloat(gpaText) || null;
+
+        // Object to hold user information
+        const userInfo = {
+          firstName,
+          lastName,
+          major,
+          gpa
+        };
+
         const rows = doc.querySelectorAll("table.completedCourses tr.takenCourse");
         const extractedCourses = [];
         rows.forEach((row) => {
@@ -62,12 +93,12 @@ export default function UploadDegreeAudit() {
         const todoReq = constructTodoReq(priorReq);
         const classData = constructClassArray(classDataJSON);
         console.log(priorReq);
-        console.log(todoReq);
-        console.log(classData);
+        // console.log(todoReq);
+        // console.log(classData);
 
         // ✅ Navigate to planner with all processed data
         navigate("/planner", {
-          state: { degreeData, userReq, priorReq, todoReq, classData },
+          state: { degreeData, userReq, priorReq, todoReq, classData, userInfo },
         });
       };
       reader.readAsText(uploadedFile);
@@ -184,10 +215,12 @@ export default function UploadDegreeAudit() {
     const priorReq = {};
     Object.entries(userReq).forEach(([reqKey, classes]) => {
       const completedCount = classes.filter(c => c.status === "Completed").length;
+      const progressCount = classes.filter(c => c.status === "In Progress").length;
       const target = sdsuReq[reqKey]?.class_num_min || 0;
       priorReq[reqKey] = {
         name: sdsuReq[reqKey]?.name || reqKey,
         completed: completedCount,
+        progress: progressCount,
         target: target,
       };
     });

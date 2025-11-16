@@ -3,11 +3,12 @@ import { useLocation } from "react-router-dom";
 import CourseSearch from "./CourseSearch";
 import AIAssistant from "./AIAssistant";
 import YearView from "./YearView";
+import DegreeOverview from "./DegreeOverview";
 import "./index.css";
 
 export default function Planner() {
   const location = useLocation();
-  const { degreeData, userReq, priorReq, todoReq, classData } = location.state || {};
+  const { degreeData, userReq, priorReq, todoReq, classData, userInfo } = location.state || {};
 
   // --- Draggable sidebar width (vertical splitter) ---
   const [sidebarWidth, setSidebarWidth] = useState(33); // %
@@ -72,13 +73,20 @@ export default function Planner() {
     <div className="flex mt-16 items-start h-[calc(100vh-4rem)] overflow-hidden">
       {/* --- Main Planner --- */}
       <main
-        className="h-full p-4 overflow-auto"
+        className="h-full px-2 py-6 overflow-auto"
         style={{ width: `${mainWidth}%` }}
       >
         <div className="bg-white p-4">
-          <h1 className="text-xl font-bold mb-4">Planner</h1>
+          {/* --- Degree Overview heading --- */}
+          <h1 className="text-4xl font-bold mb-6 -mt-8">
+            Degree Overview{userInfo ? ` - ${userInfo.firstName} ${userInfo.lastName}` : ""}
+          </h1>
 
-          <div className="space-y-10">
+          {/* --- Degree Overview component --- */}
+          {priorReq && <DegreeOverview priorReq={priorReq} userInfo={userInfo} />}
+
+          {/* Gap before YearView */}
+          <div className="mt-6 space-y-10">
             {degreeData
               ? Object.entries(degreeData).map(([year, semesters]) => (
                   <YearView
@@ -98,6 +106,7 @@ export default function Planner() {
           </div>
         </div>
       </main>
+
 
       {/* --- Vertical Split Handle --- */}
       <div

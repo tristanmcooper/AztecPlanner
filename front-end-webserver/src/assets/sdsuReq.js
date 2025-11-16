@@ -1,6 +1,6 @@
 export const sdsuReq = {
   "prep-for-major": {
-    name: "Preparation for Major Requirements",
+    name: "Major Prep",
     class_num_min: 16,
     class_grade_min: "C",
     class_codes: [
@@ -12,7 +12,7 @@ export const sdsuReq = {
     ]
   },
   "gwar": {
-    name: "Graduate Writing Assessment Requirement",
+    name: "GWAR",
     class_num_min: 1,
     class_grade_min: "C",
     class_codes: [
@@ -51,7 +51,7 @@ export const sdsuReq = {
     ]
   },
   "major-required": {
-    name: "Required Major Courses Requirement",
+    name: "Major Requirements",
     class_num_min: 6,
     class_grade_min: "C",
     class_codes: [
@@ -64,7 +64,7 @@ export const sdsuReq = {
     ]
   },
   "major-electives": {
-    name: "Major Electives Requirement",
+    name: "Major Electives",
     class_num_min: 6,
     class_grade_min: "C",
     subarea: {
