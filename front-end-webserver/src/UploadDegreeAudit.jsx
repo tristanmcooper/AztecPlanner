@@ -161,7 +161,7 @@ export default function UploadDegreeAudit() {
   };
 
   return (
-    <main className="mx-auto max-w-[1280px] px-4" role="main">
+    <main className="mx-auto mt-16 max-w-[1280px] px-4" role="main">
       {/* Back Arrow */}
       <button
         onClick={() => navigate("/")}
@@ -172,7 +172,7 @@ export default function UploadDegreeAudit() {
       </button>
 
       {/* Heading + subtitle */}
-      <section className="text-center mt-12">
+      <section className="text-center mt-28">
         <h2 className="text-5xl font-bold text-black mb-6 mt-12 text-center">
           Upload Degree Audit
         </h2>

@@ -9,11 +9,10 @@ export default function Planner() {
 
   return (
     <div className="flex gap-4 items-start">
-      <main className="flex-1 p-4">
+      <main className="flex-1 p-4 mr-[33%]"> {/* Leave space for the fixed sidebar */}
         <div className="bg-white border rounded p-4">
           <h1 className="text-xl font-bold mb-4">Planner</h1>
 
-          {/* ✅ Properly formatted display of uploaded degree data */}
           {degreeData ? (
             <div className="space-y-6">
               {Object.entries(degreeData).map(([year, semesters]) => (
@@ -44,14 +43,13 @@ export default function Planner() {
         </div>
       </main>
 
-      <aside className="w-1/3 shrink-0">
-        <div className="sticky top-20 flex flex-col h-[calc(100vh-4rem)]">
-          <div className="basis-[40%]">
-            <CourseSearch />
-          </div>
-          <div className="basis-[60%]">
-            <AIAssistant />
-          </div>
+      {/* Fixed sidebar */}
+      <aside className="fixed right-0 top-[4rem] w-1/3 h-[calc(100vh-4rem)] flex flex-col p-4 bg-gray-50 border-l">
+        <div className="basis-[40%] overflow-y-auto">
+          <CourseSearch />
+        </div>
+        <div className="basis-[60%] overflow-y-auto mt-4">
+          <AIAssistant />
         </div>
       </aside>
     </div>

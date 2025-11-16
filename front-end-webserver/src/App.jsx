@@ -19,10 +19,12 @@ function LandingPage() {
 
   return (
     <>
+    <div className="mt-16">
       <LandingHero
         onUploadClick={handleUploadClick}
         onStartFromScratch={handleStartFromScratch}
       />
+    </div>
     </>
   );
 }

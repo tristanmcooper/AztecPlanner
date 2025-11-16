@@ -25,7 +25,7 @@ export default function PlanFromScratch() {
       </button>
       {/* Heading + subtitle */}
       <section className="text-center mt-12">
-        <h2 className="text-5xl font-bold text-black mb-6 mt-12 text-center">
+        <h2 className="text-5xl font-bold text-black mb-6 mt-28 text-center">
           Plan From Scratch
         </h2>
         <p className="mt-9 text-lg sm:text-xl max-w-3xl mx-auto font-medium">

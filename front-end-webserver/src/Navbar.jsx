@@ -10,7 +10,11 @@ export default function Navbar() {
   return (
     <div
       style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
         width: "100%",
+        zIndex: 50,
         padding: "10px 16px",
         background: "#A6192E",
         display: "flex",
