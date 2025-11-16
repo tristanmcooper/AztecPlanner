@@ -41,7 +41,11 @@ def create_app() -> "FastAPI":
 
     # local imports from utils
     from utils.course_db import CourseDB
-    from utils.chroma import ChromaVectorStore
+    # chroma may require optional third-party deps; import safely
+    try:
+        from utils.chroma import ChromaVectorStore
+    except Exception:
+        ChromaVectorStore = None
     # llm module may or may not instantiate a workable client depending on env
     try:
         from utils.llm import lite_llm
@@ -93,7 +97,49 @@ def create_app() -> "FastAPI":
 
     # --- initialize service instances ---
     course_db = CourseDB()  # uses utils/data/sdsu_cs_courses.json by default
-    chroma = ChromaVectorStore()
+
+    # Provide a lightweight dummy fallback when chroma isn't available so
+    # the API can still start for endpoints that don't require vectors.
+    class _DummyChroma:
+        def add_document(self, document_text, collection_name):
+            raise RuntimeError("Chroma client not available in this environment")
+
+        def add_documents(self, document_texts, collection_name):
+            raise RuntimeError("Chroma client not available in this environment")
+
+        def query_similar_documents(self, query_text, n_results, collection_name):
+            return []
+
+        def clear_collection(self, collection_name):
+            raise RuntimeError("Chroma client not available in this environment")
+
+        def reset_all_collections(self):
+            raise RuntimeError("Chroma client not available in this environment")
+
+        def populate_from_dir(self, data_dir, collection_name="allData", force=False):
+            return
+
+    if ChromaVectorStore is None:
+        chroma = _DummyChroma()
+        logging.getLogger("api_server").warning(
+            "ChromaVectorStore not importable; running with dummy chroma (vector features disabled)"
+        )
+    else:
+        try:
+            chroma = ChromaVectorStore()
+        except Exception:
+            logging.getLogger("api_server").exception("Failed to initialize ChromaVectorStore; using dummy fallback")
+            chroma = _DummyChroma()
+
+    # Auto-populate chroma from utils/data if possible (no-op for dummy)
+    try:
+        from pathlib import Path
+        data_dir = Path(__file__).parent / "data"
+        if hasattr(chroma, "populate_from_dir"):
+            chroma.populate_from_dir(data_dir, collection_name="allData")
+    except Exception:
+        logger = logging.getLogger("api_server")
+        logger.exception("Failed to auto-populate Chroma DB from utils/data")
 
     @app.get("/health")
     def health() -> Dict[str, Any]:
@@ -277,9 +323,18 @@ def create_app() -> "FastAPI":
 try:
     app = create_app()
 except Exception:
-    # Keep module importable even if dependencies are missing; the error will surface when
-    # someone attempts to run the server or create the app.
-    app = None
+    # Keep module importable even if dependencies are missing; provide a minimal
+    # FastAPI fallback so the module-level `app` is always a callable ASGI
+    # application. This prevents Uvicorn from receiving `None` which leads to
+    # a confusing TypeError in middleware.
+    logging.getLogger("api_server").exception("create_app() failed; providing minimal fallback FastAPI app")
+    try:
+        from fastapi import FastAPI
+        app = FastAPI(title="AztecPlanner API (fallback)", version="0.0")
+    except Exception:
+        # If FastAPI isn't installed at all, provide a very small ASGI app
+        def app(scope):
+            raise RuntimeError("FastAPI not available and create_app failed")
 
 
 if __name__ == "__main__":
