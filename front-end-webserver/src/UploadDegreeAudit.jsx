@@ -161,7 +161,7 @@ export default function UploadDegreeAudit() {
   };
 
   return (
-    <div className="mx-auto max-w-xl px-4 py-10">
+    <main className="mx-auto max-w-[1280px] px-4" role="main">
       {/* Back Arrow */}
       <button
         onClick={() => navigate("/")}
@@ -170,14 +170,37 @@ export default function UploadDegreeAudit() {
       >
         ←
       </button>
-      <h1 className="text-2xl font-bold mb-6 text-center">Upload Your Degree Audit</h1>
-      <div className="bg-white p-6 rounded-lg shadow-md w-full flex flex-col gap-4 border">
-        <button
+
+      {/* Heading + subtitle */}
+      <section className="text-center mt-12">
+        <h2 className="text-5xl font-bold text-black mb-6 mt-12 text-center">
+          Upload Degree Audit
+        </h2>
+        <p className="mt-9 text-lg sm:text-xl max-w-3xl mx-auto font-medium">
+          Upload your SDSU Degree Audit as an HTML file to get started.
+        </p>
+      </section>
+
+      {/* Upload Box */}
+      <div
+        className="w-[675px] h-[302px] border-2 border-dashed border-black rounded-lg flex flex-col items-center justify-center text-center mx-auto mt-6 relative cursor-pointer transition hover:bg-gray-100"
           onClick={() => fileInputRef.current?.click()}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-        >
-          Choose File
-        </button>
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={(e) => {
+          e.preventDefault();
+          const file = e.dataTransfer.files[0];
+          if (file && file.type === "text/html") {
+            const event = { target: { files: [file] } };
+            handleFileChange(event);
+          } else {
+            alert("Please drop a valid HTML file");
+          }
+        }}
+      >
+        <p className="text-2xl text-black font-normal pointer-events-none">
+          Drag & drop file here <br /> or{" "}
+          <span className="text-[#A6192E] underline">Choose File</span> to upload
+        </p>
 
         <input
           ref={fileInputRef}
@@ -186,11 +209,7 @@ export default function UploadDegreeAudit() {
           onChange={handleFileChange}
           className="hidden"
         />
-
-        {fileName && (
-          <p className="text-gray-700 font-medium">Selected file: {fileName}</p>
-        )}
       </div>
-    </div>
+    </main>
   );
 }
