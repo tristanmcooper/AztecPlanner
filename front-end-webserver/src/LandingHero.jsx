@@ -5,12 +5,12 @@ export default function LandingHero({ onUploadClick, onStartFromScratch }) {
         Plan Smarter. Party Harder.
       </h1>
 
-      <p className="mt-5 text-lg sm:text-xl max-w-3xl mx-auto font-medium">
+      <p className="mt-9 text-lg sm:text-xl max-w-3xl mx-auto font-medium">
         AztecPlanner is your AI-powered course planner for SDSU, built to make
         academic planning intuitive, insightful, and actually fun.
       </p>
 
-      <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
         {/* Upload button */}
         <button
           type="button"
