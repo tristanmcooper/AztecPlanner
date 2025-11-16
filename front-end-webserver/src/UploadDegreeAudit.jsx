@@ -161,7 +161,8 @@ export default function UploadDegreeAudit() {
   };
 
   return (
-    <main className="mx-auto mt-16 max-w-[1280px] px-4" role="main">
+    <main className="mx-auto max-w-[1280px] px-4" role="main">
+
       {/* Back Arrow */}
       <button
         onClick={() => navigate("/")}
@@ -183,7 +184,7 @@ export default function UploadDegreeAudit() {
 
       {/* Upload Box */}
       <div
-        className="w-[675px] h-[302px] border-2 border-dashed border-black rounded-lg flex flex-col items-center justify-center text-center mx-auto mt-6 relative cursor-pointer transition hover:bg-gray-100"
+        className="w-full max-w-[675px] aspect-[675/302] border-2 border-dashed border-black rounded-lg flex flex-col items-center justify-center text-center mx-auto mt-6 relative cursor-pointer transition hover:bg-gray-100"
           onClick={() => fileInputRef.current?.click()}
           onDragOver={(e) => e.preventDefault()}
           onDrop={(e) => {
