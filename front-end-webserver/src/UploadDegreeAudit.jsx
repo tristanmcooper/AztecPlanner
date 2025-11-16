@@ -49,9 +49,9 @@ export default function UploadDegreeAudit() {
         degreeDataObj.add({
           term: "SP26",
           code: "ANTH 331",
-          title: "Dummy",
+          title: "Not Found",
           credit: "3.0",
-          grade: "",
+          grade: "NA",
           status: "Planned",
         });
 
@@ -81,42 +81,42 @@ export default function UploadDegreeAudit() {
       this.data = {};         // main storage
       this.buildInitial(courses);
     }
-  
+
     // Helper to convert FA/SP/SU into real terms + academic years
     parseTerm(termCode) {
       const match = termCode.match(/([A-Z]+)(\d{2})/);
       if (!match) return null;
-    
+
       const semester = match[1];
       const year = `20${match[2]}`;
-    
+
       const termMap = {
         FA: "Fall",
         SP: "Spring",
         SU: "Summer",
       };
-    
+
       const normalizedTerm = termMap[semester];
-      
+
       // ✔️ Always use actual calendar year
       const academicYear = semester === "FA" ? parseInt(year) : parseInt(year) - 1;
-    
+
       return { academicYear, normalizedTerm };
     }
-  
+
     // Build the initial data on upload
     buildInitial(courses) {
       courses.forEach((c) => {
         const t = this.parseTerm(c.term);
         if (!t) return;
-  
+
         const { academicYear, normalizedTerm } = t;
-  
+
         if (!this.data[academicYear]) this.data[academicYear] = {};
         if (!this.data[academicYear][normalizedTerm]) {
           this.data[academicYear][normalizedTerm] = [];
         }
-  
+
         this.data[academicYear][normalizedTerm].push({
           code: c.code,
           title: c.title,
@@ -127,19 +127,19 @@ export default function UploadDegreeAudit() {
       });
 
     }
-  
+
     // Add a new course anywhere at runtime
     add(course) {
       const t = this.parseTerm(course.term);
       if (!t) throw new Error("Invalid term format");
-  
+
       const { academicYear, normalizedTerm } = t;
-  
+
       if (!this.data[academicYear]) this.data[academicYear] = {};
       if (!this.data[academicYear][normalizedTerm]) {
         this.data[academicYear][normalizedTerm] = [];
       }
-  
+
       this.data[academicYear][normalizedTerm].push({
         code: course.code,
         title: course.title,
@@ -148,13 +148,13 @@ export default function UploadDegreeAudit() {
         status: course.status,
       });
     }
-  
+
     // Optional: expose the raw object
     getRaw() {
       return this.data;
     }
   }
-  
+
 
   const constructUserReq = (degreeData) => {
     const userReq = {};
