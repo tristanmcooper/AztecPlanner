@@ -347,7 +347,7 @@ export default function CourseSearch() {
           <div className="flex flex-col gap-3 overflow-auto flex-1 p-1">
             {results.length === 0 && !loading && (
               <div className="text-gray-500 italic text-center py-4">
-                Enter course code, subject, class, topic
+                No results found.
               </div>
             )}
 
