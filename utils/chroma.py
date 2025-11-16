@@ -25,6 +25,20 @@ class ChromaVectorStore:
         collection.add(documents=[document_text], ids=[document_id])
         return document_id
 
+    def add_documents(self, document_texts, collection_name):
+        """Add a list of documents to the named collection and return their ids.
+
+        document_texts: iterable of strings
+        collection_name: one of the known collection names
+        """
+        if not isinstance(document_texts, (list, tuple)):
+            raise ValueError("'document_texts' must be a list or tuple of strings")
+        ids = [str(uuid.uuid4()) for _ in document_texts]
+        collection = self.collection_selector(collection_name)
+        # chroma collection.add accepts lists of documents and ids
+        collection.add(documents=list(document_texts), ids=ids)
+        return ids
+
     def query_similar_documents(self, query_text, n_results, collection_name):
         collection = self.collection_selector(collection_name)
         results = collection.query(query_texts=[query_text], n_results=n_results)

@@ -114,16 +114,3 @@ class CourseDB:
             if term_low in code or term_low in name:
                 out.append(c)
         return out
-
-
-def simple_demo():
-    """Small helper to exercise the DB when run as a script."""
-    db = CourseDB()
-    print(f"Loaded {len(db.get_all())} courses from {db.json_path}")
-    sample = ["CS 210", "cs 450", "CS 999"]
-    for s in sample:
-        print(s, "->", db.get(s))
-
-
-if __name__ == "__main__":
-    simple_demo()

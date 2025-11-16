@@ -1,2 +1,5 @@
 chromadb
 litellm
+fastapi
+uvicorn[standard]
+requests

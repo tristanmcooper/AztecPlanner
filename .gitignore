@@ -1,4 +1,6 @@
 /.env
 /env
+/__pycache__/*
+/chroma_db/*
 /utils/__pycache__/*
 /utils/chroma_db/*
