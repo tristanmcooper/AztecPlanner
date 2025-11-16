@@ -5,6 +5,7 @@ import "./index.css";
 import UploadDegreeAudit from "./UploadDegreeAudit.jsx";
 import PlanFromScratch from "./PlanFromScratch.jsx";
 import Planner from "./Planner.jsx";
+import SemesterPlanner from "./SemesterPlanner.jsx";
 
 function LandingPage() {
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ export default function App() {
         <Route path="/upload" element={<UploadDegreeAudit />} />
         <Route path="/plan" element={<PlanFromScratch />} />
         <Route path="/planner" element={<Planner />} />
+        <Route path="/semester-planner" element={<SemesterPlanner />} />
       </Routes>
     </Router>
   );
