@@ -120,6 +120,25 @@ export default function CourseSearch() {
     await performSearch(example);
   }
 
+  function handleInputChange(e) {
+    const value = e.target.value;
+    setQuery(value);
+
+    const trimmed = value.trim();
+    if (!trimmed) {
+      // Reset to suggestion state
+      setResults([]);
+      setSelectedCourse(null);
+      setExpandedProfessorId(null);
+      setError(null);
+      setLoading(false);
+      return;
+    }
+
+    // Live search as user types
+    performSearch(value);
+  }
+
   function handleDragStart(e, course) {
     e.dataTransfer.setData("application/json", JSON.stringify(course));
     e.dataTransfer.effectAllowed = "copy";
@@ -138,10 +157,7 @@ export default function CourseSearch() {
           aria-label="Search courses"
           placeholder="Search courses, code, subject, topic..."
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") doSearch(e);
-          }}
+          onChange={handleInputChange}
           className="flex-1 px-3 py-2 border rounded focus:outline-none focus:ring"
         />
       </form>
