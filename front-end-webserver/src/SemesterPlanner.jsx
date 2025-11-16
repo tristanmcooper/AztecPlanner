@@ -421,7 +421,7 @@ export default function SemesterPlanner({
       <div className="text-sm mb-4">
         Next semester to plan:{" "}
         <span className="font-semibold">
-          {findSemester(effectiveDegreeData) || "N/A"}
+          {findSemester(effectiveDegreeData) || "Spring 2026"}
         </span>
       </div>
 
