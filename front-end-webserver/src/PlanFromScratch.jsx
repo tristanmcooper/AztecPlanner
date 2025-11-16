@@ -9,6 +9,14 @@ export default function PlanFromScratch() {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
+            {/* Back Arrow */}
+      <button
+        onClick={() => navigate("/")}
+        className="absolute top-20 left-4 text-3xl text-gray-900 hover:text-black"
+        aria-label="Go back to landing page"
+      >
+        ←
+      </button>
       <h1 className="text-3xl font-bold mb-6">Plan From Scratch</h1>
       <p className="text-gray-700 mb-6 text-center max-w-lg">
         Start building your degree plan manually from here. You can add courses,

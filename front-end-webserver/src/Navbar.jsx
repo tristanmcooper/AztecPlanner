@@ -1,21 +1,31 @@
+import { useNavigate } from "react-router-dom";
+
 export default function Navbar() {
+  const navigate = useNavigate();
+
+  const handleLogoClick = () => {
+    navigate("/"); // Go back to landing page
+  };
+
   return (
     <div
       style={{
-        width: '100%',
-        padding: '10px 16px',
-        background: '#A6192E',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        width: "100%",
+        padding: "10px 16px",
+        background: "#A6192E",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
       }}
     >
-      {/* (Logo + Star) */}
+      {/* (Logo + AztecPlanner text) */}
       <div
+        onClick={handleLogoClick}
         style={{
-          display: 'flex',
-          alignItems: 'center',
+          display: "flex",
+          alignItems: "center",
           gap: 8,
+          cursor: "pointer", // show pointer on hover
         }}
       >
         <img
@@ -28,12 +38,12 @@ export default function Navbar() {
         />
         <div
           style={{
-            color: 'white',
+            color: "white",
             fontSize: 24,
-            fontFamily: 'Proxima Nova',
+            fontFamily: "Proxima Nova",
             fontWeight: 700,
-            display: 'flex',
-            alignItems: 'center',
+            display: "flex",
+            alignItems: "center",
           }}
         >
           AztecPlanner
@@ -43,20 +53,20 @@ export default function Navbar() {
       {/* (Tutorial button) */}
       <div
         style={{
-          padding: '5px 10px',
+          padding: "5px 10px",
           borderRadius: 10,
-          border: '1px solid white',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          border: "1px solid white",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         <div
           style={{
-            textAlign: 'center',
-            color: 'white',
+            textAlign: "center",
+            color: "white",
             fontSize: 16,
-            fontFamily: 'Proxima Nova',
+            fontFamily: "Proxima Nova",
             fontWeight: 500,
           }}
         >

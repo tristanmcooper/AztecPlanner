@@ -1,11 +1,13 @@
 import { useState, useRef } from "react";
 import { sdsuReq } from "./assets/sdsuReq.js";
 import classDataJSON from "./assets/classData.json";
+import { useNavigate } from "react-router-dom";
 
 export default function UploadDegreeAudit() {
   const [courses, setDegreeData] = useState([]);
   const [fileName, setFileName] = useState("");
   const fileInputRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleFileChange = (event) => {
     const uploadedFile = event.target.files[0];
@@ -165,6 +167,14 @@ export default function UploadDegreeAudit() {
 
   return (
     <div className="mx-auto max-w-xl px-4 py-10">
+      {/* Back Arrow */}
+      <button
+        onClick={() => navigate("/")}
+        className="absolute top-20 left-4 text-3xl text-gray-900 hover:text-black"
+        aria-label="Go back to landing page"
+      >
+        ←
+      </button>
       <h1 className="text-2xl font-bold mb-6 text-center">Upload Your Degree Audit</h1>
       <div className="bg-white p-6 rounded-lg shadow-md w-full flex flex-col gap-4 border">
         <button
