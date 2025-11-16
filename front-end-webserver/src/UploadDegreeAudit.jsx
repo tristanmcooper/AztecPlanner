@@ -27,7 +27,6 @@ export default function UploadDegreeAudit() {
         rows.forEach((row) => {
           const termEl = row.querySelector("td.term");
           const term = termEl?.textContent.trim();
-
           if (!term) return;
 
           const code = row.querySelector("td.course")?.textContent.trim();
@@ -43,21 +42,17 @@ export default function UploadDegreeAudit() {
         });
         setDegreeData(extractedCourses);
 
-        // DEBUG
+        // Construct data
         const degreeData = constructDegreeData(extractedCourses);
-        console.log("Constructed Degree Data:", degreeData);
-
         const userReq = constructUserReq(degreeData);
-        console.log("Constructed User Requirements:", userReq);
-
         const priorReq = constructPriorReq(userReq, sdsuReq);
-        console.log("Constructed Prior Requirement Summary:", priorReq);
-
         const todoReq = constructTodoReq(priorReq);
-        console.log("Constructed Todo Requirements:", todoReq);
-
         const classData = constructClassArray(classDataJSON);
-        console.log("Class Data Array:", classData);
+
+        // ✅ Navigate to planner with all processed data
+        navigate("/planner", {
+          state: { degreeData, userReq, priorReq, todoReq, classData },
+        });
       };
       reader.readAsText(uploadedFile);
     } else {
@@ -65,7 +60,7 @@ export default function UploadDegreeAudit() {
     }
   };
 
-  // Helper functions moved here
+  // Helper functions unchanged...
   const constructDegreeData = (courses) => {
     const data = {};
     courses.forEach((c) => {
@@ -194,21 +189,6 @@ export default function UploadDegreeAudit() {
 
         {fileName && (
           <p className="text-gray-700 font-medium">Selected file: {fileName}</p>
-        )}
-
-        {courses.length > 0 && (
-          <div className="mt-2 space-y-2">
-            {courses.map((c, i) => (
-              <div key={i} className="p-2 border rounded bg-gray-50">
-                <p><strong>Term:</strong> {c.term}</p>
-                <p><strong>Course:</strong> {c.code}</p>
-                <p><strong>Title:</strong> {c.title}</p>
-                <p><strong>Credit:</strong> {c.credit}</p>
-                <p><strong>Grade:</strong> {c.grade}</p>
-                <p><strong>Status:</strong> {c.status}</p>
-              </div>
-            ))}
-          </div>
         )}
       </div>
     </div>
