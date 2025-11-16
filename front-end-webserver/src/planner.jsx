@@ -75,7 +75,7 @@ export default function Planner() {
         className="h-full p-4 overflow-auto"
         style={{ width: `${mainWidth}%` }}
       >
-        <div className="bg-white border rounded p-4">
+        <div className="bg-white p-4">
           <h1 className="text-xl font-bold mb-4">Planner</h1>
 
           <div className="space-y-10">
@@ -100,22 +100,20 @@ export default function Planner() {
       </main>
 
       {/* --- Vertical Split Handle --- */}
-      <div className="h-full flex items-center" style={{ width: "14px" }}>
-        <div
-          className={`mx-auto h-24 w-1 rounded-full cursor-col-resize ${
-            isDraggingCol ? "bg-gray-400" : "bg-gray-300"
-          }`}
-          onMouseDown={(e) => {
-            e.preventDefault();
-            setIsDraggingCol(true);
-          }}
-        />
-      </div>
+      <div
+        className={`h-full w-[6px] cursor-col-resize transition-colors ${
+          isDraggingCol ? "bg-gray-400" : "bg-gray-200 hover:bg-gray-300"
+        }`}
+        onMouseDown={(e) => {
+          e.preventDefault();
+          setIsDraggingCol(true);
+        }}
+      />
 
       {/* --- Sidebar --- */}
       <aside
         ref={sidebarRef}
-        className="h-full flex flex-col p-4 bg-gray-50 border-l overflow-hidden"
+        className="h-full flex flex-col bg-gray-50 overflow-hidden"
         style={{ width: `${sidebarWidth}%` }}
       >
         {/* --- CourseSearch --- */}
@@ -124,17 +122,15 @@ export default function Planner() {
         </div>
 
         {/* --- Horizontal Split Handle --- */}
-        <div className="w-full flex items-center justify-center my-2">
-          <div
-            className={`h-1 w-24 rounded-full cursor-row-resize ${
-              isDraggingRow ? "bg-gray-400" : "bg-gray-300"
-            }`}
-            onMouseDown={(e) => {
-              e.preventDefault();
-              setIsDraggingRow(true);
-            }}
-          />
-        </div>
+        <div
+          className={`w-full h-[6px] cursor-row-resize transition-colors ${
+            isDraggingRow ? "bg-gray-400" : "bg-gray-200 hover:bg-gray-300"
+          }`}
+          onMouseDown={(e) => {
+            e.preventDefault();
+            setIsDraggingRow(true);
+          }}
+        />
 
         {/* --- AIAssistant --- */}
         <div
