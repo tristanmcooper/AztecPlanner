@@ -47,10 +47,22 @@ export default function YearView({ yearLabel, data = {} }) {
     });
   };
 
+  // Helper: pick color classes based on course status
+  const getCourseColorClasses = (status) => {
+    switch (status) {
+      case "Completed":
+        return "bg-[#1ECB7433] outline-[#1ECB74]";
+      case "In Progress":
+        return "bg-[#2C97D733] outline-[#2C97D7]";
+      default:
+        return "bg-white outline-black/20 hover:bg-gray-50";
+    }
+  };
+
   return (
     <div className="w-full max-w-[932px] flex flex-col gap-4">
       {/* Year Header */}
-      <div className="p-3.5 bg-rose-800 outline outline-1 outline-white flex justify-between items-center rounded-sm">
+      <div className="p-3.5 bg-[#A6192E] outline outline-1 outline-white flex justify-between items-center">
         <div className="text-white text-xl font-bold">{yearLabel}</div>
         <div className="text-white text-xl font-bold">Units: 0</div>
       </div>
@@ -76,8 +88,12 @@ export default function YearView({ yearLabel, data = {} }) {
                   onDragStart={(e) => handleDragStart(term, i, e)}
                   onDrop={(e) => handleDrop(term, i, e)}
                   onDragOver={allowDrop}
-                  className={`w-72 min-h-[56px] px-2.5 py-1.5 rounded-[5px] outline outline-1 outline-black/20 flex flex-col justify-center items-start overflow-hidden transition-colors relative
-                    ${course ? "bg-white cursor-move hover:bg-gray-50" : "bg-gray-50 hover:bg-gray-100"}`}
+                  className={`w-72 min-h-[56px] px-2.5 py-1.5 rounded-[5px] outline outline-1 flex flex-col justify-center items-start overflow-hidden transition-colors relative
+                    ${
+                      course
+                        ? `${getCourseColorClasses(course.status)} cursor-move`
+                        : "bg-gray-50 outline-black/20 hover:bg-gray-100"
+                    }`}
                 >
                   {course ? (
                     <>
