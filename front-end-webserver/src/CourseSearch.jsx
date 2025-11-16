@@ -1,4 +1,3 @@
-
 // front-end-webserver/src/CourseSearch.jsx
 import React, { useState } from "react";
 import profExtra from "./assets/sdsu_cs_professors.json";
@@ -346,8 +345,29 @@ export default function CourseSearch() {
           // LIST VIEW
           <div className="flex flex-col gap-3 overflow-auto flex-1 p-1">
             {results.length === 0 && !loading && (
-              <div className="text-gray-500 italic text-center py-4">
-                No results found.
+              <div className="flex flex-col items-center justify-center text-center text-gray-600 py-6 select-none">
+                {query.trim() ? (
+                  <>
+                    <div className="text-base font-semibold text-gray-700">
+                      No courses found for “{query.trim()}”
+                    </div>
+                    <div className="mt-1 text-sm text-gray-500">
+                      Try a different code, subject, or keyword.
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="text-base font-semibold text-gray-700">
+                      Search for a course to add
+                    </div>
+                    <div className="mt-1 text-sm text-gray-500">
+                      Start typing a course code, subject, or topic.
+                    </div>
+                    <div className="mt-2 text-xs text-[#A6192E]">
+                      Example: “CS 160”, “data science”, “GE writing”.
+                    </div>
+                  </>
+                )}
               </div>
             )}
 
@@ -381,7 +401,9 @@ export default function CourseSearch() {
                         <div className="text-xs text-gray-600 mt-0.5">
                           {course.units && <span>{course.units} units</span>}
                           {course.typically_offered && (
-                            <span className="ml-2">{course.typically_offered}</span>
+                            <span className="ml-2">
+                              {course.typically_offered}
+                            </span>
                           )}
                         </div>
                       </div>
@@ -404,4 +426,3 @@ export default function CourseSearch() {
     </div>
   );
 }
-
