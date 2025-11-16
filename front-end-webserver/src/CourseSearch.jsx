@@ -347,7 +347,7 @@ export default function CourseSearch() {
           <div className="flex flex-col gap-3 overflow-auto flex-1 p-1">
             {results.length === 0 && !loading && (
               <div className="text-gray-500 italic text-center py-4">
-                No results
+                Enter course code, subject, class, topic
               </div>
             )}
 
@@ -360,7 +360,7 @@ export default function CourseSearch() {
                   key={code}
                   draggable
                   onDragStart={(e) => handleDragStart(e, course)}
-                  className="cursor-grab active:cursor-grabbing select-none border border-gray-200 bg-white rounded-xl p-3 shadow-sm hover:shadow-md hover:border-blue-300 transition-all duration-150"
+                  className="cursor-grab active:cursor-grabbing select-none border border-gray-200 bg-white rounded-xl p-3 hover:border-black transition-all duration-150"
                 >
                   <button
                     type="button"
