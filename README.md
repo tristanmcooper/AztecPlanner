@@ -105,5 +105,5 @@ npm run dev
 ---
 
 <div align="center">
-Built with love for SDSU students by the <i>Sudo Apt-get Win</i> Innovate 4 SDSU Hackathon Team
+Built with love for SDSU students by the <i>Sudo Apt-get Win</i> Team during the Innovate 4 SDSU Hackathon
 </div>
